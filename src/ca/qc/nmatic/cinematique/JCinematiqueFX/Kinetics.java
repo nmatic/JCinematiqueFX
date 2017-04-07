@@ -41,8 +41,6 @@ public class Kinetics {
     }
 
     public String findValue() {
-        boolean noError = true;
-        //TODO: try catch, if catch, bad entry, retry
         bXi = !initialPosStr.equals("");
         bXf = !finalPosStr.equals("");
         bVi = !initialVelStr.equals("");
@@ -50,23 +48,27 @@ public class Kinetics {
         bDt = !elapsedTimeStr.equals("");
         bA = !accelerationStr.equals("");
 
-        if (bXi) {
-            initialPos = Double.parseDouble(initialPosStr);
-        }
-        if (bXf) {
-            finalPos = Double.parseDouble(finalPosStr);
-        }
-        if (bVi) {
-            initialVel = Double.parseDouble(initialVelStr);
-        }
-        if (bVf) {
-            finalVel = Double.parseDouble(finalVelStr);
-        }
-        if (bDt) {
-            elapsedTime = Double.parseDouble(elapsedTimeStr);
-        }
-        if (bA) {
-            acceleration = Double.parseDouble(accelerationStr);
+        try {
+            if (bXi) {
+                initialPos = Double.parseDouble(initialPosStr);
+            }
+            if (bXf) {
+                finalPos = Double.parseDouble(finalPosStr);
+            }
+            if (bVi) {
+                initialVel = Double.parseDouble(initialVelStr);
+            }
+            if (bVf) {
+                finalVel = Double.parseDouble(finalVelStr);
+            }
+            if (bDt) {
+                elapsedTime = Double.parseDouble(elapsedTimeStr);
+            }
+            if (bA) {
+                acceleration = Double.parseDouble(accelerationStr);
+            }
+        } catch (NumberFormatException e) {
+            return "Bad input, try again.";
         }
 
         switch (desiredValue) {

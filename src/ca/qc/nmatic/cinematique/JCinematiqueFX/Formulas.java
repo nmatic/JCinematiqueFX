@@ -6,6 +6,7 @@ package ca.qc.nmatic.cinematique.JCinematiqueFX;
  */
 public class Formulas {
 
+    
     public double vf_1(double a, double vi, double d_t) {
         return (vi + a * d_t);
     }
