@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -18,7 +17,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.JCinematiqueFX.JCinematiqueFXUIController">
+<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.JCinematiqueFX.JCinematiqueFXUIController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="781.0" AnchorPane.bottomAnchor="516.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -81,11 +80,12 @@
         </yAxis>
       </LineChart>
       <TextArea fx:id="outputField" editable="false" layoutX="25.0" layoutY="378.0" prefHeight="149.0" prefWidth="462.0" promptText="Output" wrapText="true" />
-      <TableView layoutX="498.0" layoutY="274.0" prefHeight="253.0" prefWidth="270.0">
+      <TableView layoutX="498.0" layoutY="378.0" prefHeight="149.0" prefWidth="270.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <Button layoutX="498.0" layoutY="271.0" mnemonicParsing="false" onAction="#resetFields" prefHeight="17.0" prefWidth="270.0" text="Reset" />
    </children>
 </AnchorPane>

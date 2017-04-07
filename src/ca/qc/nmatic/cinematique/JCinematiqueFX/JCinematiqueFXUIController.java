@@ -21,9 +21,8 @@ import javafx.scene.control.TextArea;
  */
 public class JCinematiqueFXUIController implements Initializable {
 
-    
     ObservableList<String> chosenValue = FXCollections.observableArrayList("- SELECT -", "Initial position", "Final position", "Initial velocity", "Final velocity", "Elapsed time", "Acceleration");
-    
+
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
@@ -58,12 +57,14 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private ComboBox desiredValue;
     @FXML
-    private LineChart<Number, Number> graphChart = new LineChart<>(xAxis, yAxis);;
+    private LineChart<Number, Number> graphChart = new LineChart<>(xAxis, yAxis);
+
+    ;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println(desiredValue.getValue());
-        Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), desiredId((String) desiredValue.getValue()));
+        Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
+        System.out.println(kinetics.findValue());
         outputField.setText(kinetics.findValue());
         fillChartWithXSquared();
         graphChart.getData().add(series);
@@ -88,21 +89,21 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     public void resetButton() {
         resetFields();
-        showFields();
+//        showFields();
     }
-    
+
     @FXML
     private void showFields() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    private void fillChartWithXSquared(){
-        for(int i = 0; i < 30; i++){
+
+    private void fillChartWithXSquared() {
+        for (int i = 1; i < 30; i++) {
             series.getData().add(new XYChart.Data(i, (i * i)));
         }
-        
+
     }
-    
+
     private int desiredId(String value) {
         switch (value) {
             case "Initial position":
