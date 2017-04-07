@@ -1,0 +1,2 @@
+# JCinematiqueFX
+Kinetics graphing & calculator.
