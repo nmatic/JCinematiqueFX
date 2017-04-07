@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
 import java.net.URL;
@@ -12,6 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,12 +17,18 @@ import javafx.scene.control.TextArea;
 
 /**
  *
- * @author Administrateur
+ * @author Victor Babin
  */
 public class JCinematiqueFXUIController implements Initializable {
+
     
     ObservableList<String> chosenValue = FXCollections.observableArrayList("- SELECT -", "Initial position", "Final position", "Initial velocity", "Final velocity", "Elapsed time", "Acceleration");
     
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    XYChart.Series series = new XYChart.Series();
+
     @FXML
     private TextField entryInitialPos;
     @FXML
@@ -51,25 +55,28 @@ public class JCinematiqueFXUIController implements Initializable {
     private Label labelAcceleration;
     @FXML
     private TextArea outputField;
-    
     @FXML
     private ComboBox desiredValue;
-    
+    @FXML
+    private LineChart<Number, Number> graphChart = new LineChart<>(xAxis, yAxis);;
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println(desiredValue.getValue());
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), desiredId((String) desiredValue.getValue()));
         outputField.setText(kinetics.findValue());
+        fillChartWithXSquared();
+        graphChart.getData().add(series);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         desiredValue.setValue("- SELECT -");
-        desiredValue.setItems(chosenValue);        
-    }    
-    
+        desiredValue.setItems(chosenValue);
+    }
+
     @FXML
-    public void resetFields(){
+    public void resetFields() {
         entryAcceleration.setText("");
         entryElapsedTime.setText("");
         entryFinalPos.setText("");
@@ -77,9 +84,9 @@ public class JCinematiqueFXUIController implements Initializable {
         entryInitialPos.setText("");
         entryInitialVel.setText("");
     }
-    
+
     @FXML
-    public void resetButton(){
+    public void resetButton() {
         resetFields();
         showFields();
     }
@@ -89,8 +96,15 @@ public class JCinematiqueFXUIController implements Initializable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    private int desiredId(String value){
-        switch(value){
+    private void fillChartWithXSquared(){
+        for(int i = 0; i < 30; i++){
+            series.getData().add(new XYChart.Data(i, (i * i)));
+        }
+        
+    }
+    
+    private int desiredId(String value) {
+        switch (value) {
             case "Initial position":
                 return 1;
             case "Final position":
@@ -152,5 +166,5 @@ public class JCinematiqueFXUIController implements Initializable {
 //    public void menuAboutActionPerformed() {                                          
 //        JOptionPane.showMessageDialog(new JFrame(), "(c)2016 Victor Babin" + "\n Calculateur de la cinématique en Java" + "\n https://github.com/vicbab ", "À propos", JOptionPane.PLAIN_MESSAGE);
 //    }     
-    
+
 }

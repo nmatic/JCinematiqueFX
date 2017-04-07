@@ -72,9 +72,9 @@
          </children>
       </GridPane>
       <Button layoutX="498.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="17.0" prefWidth="270.0" text="Graph" />
-      <LineChart layoutX="25.0" layoutY="84.0" prefHeight="290.0" prefWidth="462.0">
+      <LineChart fx:id="graphChart" axisSortingPolicy="NONE" layoutX="25.0" layoutY="84.0" prefHeight="290.0" prefWidth="462.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />

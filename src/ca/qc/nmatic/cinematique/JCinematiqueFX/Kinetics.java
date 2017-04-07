@@ -52,7 +52,6 @@ public class Kinetics {
             result = formula.xi_2(finalPos, initialVel, finalVel, elapsedTime);
             formule = "Xi = -½ *(Vi + Vf)* \u0394t - Xf";
             formuleDonnees = "Xi = -½ * (" + initialVel + " + " + finalVel + ") * " + elapsedTime + " - " + finalPos;
-            System.out.println(formule);
 
             output = formule + "\n" + formuleDonnees + "\n" + "Xi = " + result + unit;
 
