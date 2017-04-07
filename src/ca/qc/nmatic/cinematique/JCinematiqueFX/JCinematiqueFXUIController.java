@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 
@@ -22,7 +23,7 @@ import javafx.scene.control.TextArea;
  */
 public class JCinematiqueFXUIController implements Initializable {
     
-    ObservableList<String> = FXCollections.observableArrayList("Initial position", "Final position", "Initial velocity", "Final velocity", "Elapsed time", "Acceleration");
+    ObservableList<String> chosenValue = FXCollections.observableArrayList("- SELECT -", "Initial position", "Final position", "Initial velocity", "Final velocity", "Elapsed time", "Acceleration");
     
     @FXML
     private TextField entryInitialPos;
@@ -37,6 +38,18 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private TextField entryAcceleration;
     @FXML
+    private Label labelInitialPos;
+    @FXML
+    private Label labelFinalPos;
+    @FXML
+    private Label labelInitialVel;
+    @FXML
+    private Label labelFinalVel;
+    @FXML
+    private Label labelElapsedTime;
+    @FXML
+    private Label labelAcceleration;
+    @FXML
     private TextArea outputField;
     
     @FXML
@@ -44,13 +57,15 @@ public class JCinematiqueFXUIController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), 0);
+        System.out.println(desiredValue.getValue());
+        Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), desiredId((String) desiredValue.getValue()));
         outputField.setText(kinetics.findValue());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        desiredValue.setValue("- SELECT -");
+        desiredValue.setItems(chosenValue);        
     }    
     
     @FXML
@@ -74,33 +89,50 @@ public class JCinematiqueFXUIController implements Initializable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private int desiredId(String value){
+        switch(value){
+            case "Initial position":
+                return 1;
+            case "Final position":
+                return 2;
+            case "Initial velocity":
+                return 3;
+            case "Final velocity":
+                return 4;
+            case "Elapsed time":
+                return 5;
+            case "Acceleration":
+                return 6;
+            default:
+                return 0;
+        }
+    }
 //    @FXML
-//    public void hideUnused() {                                             
-//        valeurRecherche = valRecherche.getSelectedIndex();
+//    public void hideUnused(String valeurRecherche) {
 //        showFields();
 //        switch(valeurRecherche){
 //            case 1:
-//                labelXi.setVisible(false);
-//                valeurXi.setVisible(false);
+////                labelInitialPos.setVisible(false);
+//                entryInitialPos.setEditable(false);
 //                break;
 //            case 2:
-//                labelXf.setVisible(false);
+////                labelFinalPos.setVisible(false);
 //                valeurXf.setVisible(false);
 //                break;
 //            case 3:
-//                labelVi.setVisible(false);
+////                labelInitialVel.setVisible(false);
 //                valeurVi.setVisible(false);    
 //		break;
 //            case 4:
-//                labelVf.setVisible(false);
+////                labelFinalVel.setVisible(false);
 //                valeurVf.setVisible(false);   
 //                break;
 //            case 5:
-//                labelDt.setVisible(false);
+////                labelElapsedTime.setVisible(false);
 //                valeurDt.setVisible(false);    
 //                break;
 //            case 6:
-//                labelA.setVisible(false);
+////                labelAcceleration.setVisible(false);
 //                valeurA.setVisible(false);  
 //                break;
 //        }
