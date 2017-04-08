@@ -75,17 +75,47 @@ public class Keyframe {
         this.chartData = chartData;
     }
 
-    public double posValue(int time, Kinetics obj) {
+    public double posValue(int time, Kinetics actualKeyframe) {
+        Kinetics anteriorKeyframe = actualKeyframe;
         if (time == 0) {
-            obj.setDesiredValue("Initial Position");
-            obj.findValue();
-            return obj.getInitialPos();
+            if (actualKeyframe.isXiAlive()) {
+                return actualKeyframe.getInitialPos();
+            } else {
+                actualKeyframe.setDesiredValue("Initial position");
+                actualKeyframe.findValue();
+                return actualKeyframe.getInitialPos();
+            }
         } else {
-            obj.setDesiredValue("Final Position");
-            obj.setElapsedTime(time);
-            obj.setInitialPos(time - 1);
-            obj.findValue();
-            return obj.getFinalPos();
+            anteriorKeyframe.setDesiredValue("Initial position");
+            anteriorKeyframe.setElapsedTime(time - 1);
+            anteriorKeyframe.findValue();
+            actualKeyframe.setDesiredValue("Final position");
+            actualKeyframe.setElapsedTime(time);
+            actualKeyframe.setInitialPos(anteriorKeyframe.getInitialPos());
+            actualKeyframe.findValue();
+            return actualKeyframe.getFinalPos();
+        }
+    }
+
+    public double velValue(int time, Kinetics actualKeyframe) {
+        Kinetics anteriorKeyframe = actualKeyframe;
+        if (time == 0) {
+            if (actualKeyframe.isViAlive()) {
+                return actualKeyframe.getInitialVel();
+            } else {
+                actualKeyframe.setDesiredValue("Initial velocity");
+                actualKeyframe.findValue();
+                return actualKeyframe.getInitialVel();
+            }
+        } else {
+            anteriorKeyframe.setDesiredValue("Initial velocity");
+            anteriorKeyframe.setElapsedTime(time - 1);
+            anteriorKeyframe.findValue();
+            actualKeyframe.setDesiredValue("Final velocity");
+            actualKeyframe.setElapsedTime(time);
+            actualKeyframe.setInitialVel(anteriorKeyframe.getInitialVel());
+            actualKeyframe.findValue();
+            return actualKeyframe.getFinalVel();
         }
     }
 

@@ -25,12 +25,12 @@ public class Kinetics {
     private String desiredValue = null;
 
     // Déclaration des booleens pour les cases des valeurs connues
-    private boolean bXi = false;
-    private boolean bXf = false;
-    private boolean bVi = false;
-    private boolean bVf = false;
-    private boolean bDt = false;
-    private boolean bA = false;
+    private boolean xiAlive = false;
+    private boolean xfAlive = false;
+    private boolean viAlive = false;
+    private boolean vfAlive = false;
+    private boolean dtAlive = false;
+    private boolean aAlive = false;
 
     // Variables de lecture du formulaire
     private double initialPos, finalPos, initialVel, finalVel, elapsedTime, acceleration;
@@ -58,6 +58,54 @@ public class Kinetics {
         this.elapsedTimeStr = elapsedTimeStr;
         this.accelerationStr = accelerationStr;
         this.desiredValue = desiredValue;
+    }
+
+    public boolean isXiAlive() {
+        return xiAlive;
+    }
+
+    public void setXiAlive(boolean xiAlive) {
+        this.xiAlive = xiAlive;
+    }
+
+    public boolean isXfAlive() {
+        return xfAlive;
+    }
+
+    public void setXfAlive(boolean xfAlive) {
+        this.xfAlive = xfAlive;
+    }
+
+    public boolean isViAlive() {
+        return viAlive;
+    }
+
+    public void setViAlive(boolean viAlive) {
+        this.viAlive = viAlive;
+    }
+
+    public boolean isVfAlive() {
+        return vfAlive;
+    }
+
+    public void setVfAlive(boolean vfAlive) {
+        this.vfAlive = vfAlive;
+    }
+
+    public boolean isDtAlive() {
+        return dtAlive;
+    }
+
+    public void setDtAlive(boolean dtAlive) {
+        this.dtAlive = dtAlive;
+    }
+
+    public boolean isaAlive() {
+        return aAlive;
+    }
+
+    public void setaAlive(boolean aAlive) {
+        this.aAlive = aAlive;
     }
 
     public double getElapsedTime() {
@@ -117,30 +165,30 @@ public class Kinetics {
     }
 
     public String findValue() {
-        bXi = !initialPosStr.equals("");
-        bXf = !finalPosStr.equals("");
-        bVi = !initialVelStr.equals("");
-        bVf = !finalVelStr.equals("");
-        bDt = !elapsedTimeStr.equals("");
-        bA = !accelerationStr.equals("");
+        xiAlive = !initialPosStr.equals("");
+        xfAlive = !finalPosStr.equals("");
+        viAlive = !initialVelStr.equals("");
+        vfAlive = !finalVelStr.equals("");
+        dtAlive = !elapsedTimeStr.equals("");
+        aAlive = !accelerationStr.equals("");
 
         try {
-            if (bXi) {
+            if (xiAlive) {
                 initialPos = Double.parseDouble(initialPosStr);
             }
-            if (bXf) {
+            if (xfAlive) {
                 finalPos = Double.parseDouble(finalPosStr);
             }
-            if (bVi) {
+            if (viAlive) {
                 initialVel = Double.parseDouble(initialVelStr);
             }
-            if (bVf) {
+            if (vfAlive) {
                 finalVel = Double.parseDouble(finalVelStr);
             }
-            if (bDt) {
+            if (dtAlive) {
                 elapsedTime = Double.parseDouble(elapsedTimeStr);
             }
-            if (bA) {
+            if (aAlive) {
                 acceleration = Double.parseDouble(accelerationStr);
             }
         } catch (NumberFormatException e) {
@@ -149,17 +197,17 @@ public class Kinetics {
         switch (desiredValue) {
             case "Initial position":
                 unit = UNIT_DISTANCE;
-                if (bXf && bVi && bVf && bDt) {
+                if (xfAlive && viAlive && vfAlive && dtAlive) {
                     initialPos = formula.xi_2(finalPos, initialVel, finalVel, elapsedTime);
                     result = initialPos;
                     formule = formula.FORM_XI_2;
 
-                } else if (bA && bXf && bVi && bDt) {
+                } else if (aAlive && xfAlive && viAlive && dtAlive) {
                     initialPos = formula.xi_3(acceleration, finalPos, initialVel, elapsedTime);
                     result = initialPos;
                     formule = formula.FORM_XI_3;
 
-                } else if (bVi && bVf && bA && bXf) {
+                } else if (viAlive && vfAlive && aAlive && xfAlive) {
                     initialPos = formula.xi_4(initialVel, finalVel, acceleration, finalPos);
                     result = initialPos;
                     formule = formula.FORM_XI_4;
@@ -170,17 +218,17 @@ public class Kinetics {
                 break;
             case "Final position":
                 unit = UNIT_DISTANCE;
-                if (bXi && bVi && bVf && bDt) {
+                if (xiAlive && viAlive && vfAlive && dtAlive) {
                     finalPos = formula.xf_2(initialPos, initialVel, finalVel, elapsedTime);
                     result = finalPos;
                     formule = formula.FORM_XF_2;
 
-                } else if (bA && bXi && bVi && bDt) {
+                } else if (aAlive && xiAlive && viAlive && dtAlive) {
                     finalPos = formula.xf_3(acceleration, initialPos, initialVel, elapsedTime);
                     result = finalPos;
                     formule = formula.FORM_XF_3;
 
-                } else if (bXi && bVi && bVf && bA) {
+                } else if (xiAlive && viAlive && vfAlive && aAlive) {
                     finalPos = formula.xf_4(initialVel, finalVel, acceleration, initialPos);
                     result = finalPos;
                     formule = formula.FORM_XF_4;
@@ -191,22 +239,22 @@ public class Kinetics {
                 break;
             case "Initial velocity":
                 unit = UNIT_VELOCITY;
-                if (bA && bVf && bDt) {
+                if (aAlive && vfAlive && dtAlive) {
                     initialVel = formula.vi_1(acceleration, finalVel, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_1;
 
-                } else if (bXf && bXi && bVf && bDt) {
+                } else if (xfAlive && xiAlive && vfAlive && dtAlive) {
                     initialVel = formula.vi_2(initialPos, finalPos, finalVel, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_2;
 
-                } else if (bXf && bXi && bA && bDt) {
+                } else if (xfAlive && xiAlive && aAlive && dtAlive) {
                     initialVel = formula.vi_3(initialPos, finalPos, acceleration, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_3;
 
-                } else if (bXf && bXi && bVf && bA) {
+                } else if (xfAlive && xiAlive && vfAlive && aAlive) {
                     initialVel = formula.vi_4(initialPos, finalPos, finalVel, acceleration);
                     result = initialVel;
                     formule = formula.FORM_VI_4;
@@ -217,17 +265,17 @@ public class Kinetics {
                 break;
             case "Final velocity":
                 unit = UNIT_VELOCITY;
-                if (bA && bDt && bVi) {
+                if (aAlive && dtAlive && viAlive) {
                     finalVel = formula.vf_1(acceleration, initialVel, elapsedTime);
                     result = finalVel;
                     formule = formula.FORM_VF_1;
 
-                } else if (bXf && bXi && bVi && bDt) {
+                } else if (xfAlive && xiAlive && viAlive && dtAlive) {
                     finalVel = formula.vf_2(initialPos, finalPos, initialVel, elapsedTime);
                     result = finalVel;
                     formule = formula.FORM_VF_2;
 
-                } else if (bXf && bXi && bVi && bA) {
+                } else if (xfAlive && xiAlive && viAlive && aAlive) {
                     finalVel = formula.vf_4(initialPos, finalPos, initialVel, acceleration);
                     result = finalVel;
                     formule = formula.FORM_VF_4;
@@ -238,17 +286,17 @@ public class Kinetics {
                 break;
             case "Elapsed time":
                 unit = UNIT_TIME;
-                if (bVi && bVf && bA) {
+                if (viAlive && vfAlive && aAlive) {
                     elapsedTime = formula.d_t_1(initialVel, finalVel, acceleration);
                     result = elapsedTime;
                     formule = formula.FORM_DT_1;
 
-                } else if (bXi && bXf && bVi && bVf) {
+                } else if (xiAlive && xfAlive && viAlive && vfAlive) {
                     elapsedTime = formula.d_t_2(initialPos, finalPos, initialVel, finalVel);
                     result = elapsedTime;
                     formule = formula.FORM_DT_1;
 
-                } else if (bXi && bXf && bVi && bA) {
+                } else if (xiAlive && xfAlive && viAlive && aAlive) {
                     formule = formula.FORM_DT_3;
                     double result1 = formula.d_t1_3(acceleration, initialPos, finalPos, initialVel);
                     double result2 = formula.d_t2_3(acceleration, initialPos, finalPos, initialVel);
@@ -265,17 +313,17 @@ public class Kinetics {
                 break;
             case "Acceleration":
                 unit = UNIT_ACCELERATION;
-                if (bVi && bVf && bDt) {
+                if (viAlive && vfAlive && dtAlive) {
                     acceleration = formula.a_1(initialVel, finalVel, elapsedTime);
                     result = acceleration;
                     formule = formula.FORM_A_1;
 
-                } else if (bXi && bXf && bVi && bDt) {
+                } else if (xiAlive && xfAlive && viAlive && dtAlive) {
                     acceleration = formula.a_3(initialPos, finalPos, elapsedTime, initialVel);
                     result = acceleration;
                     formule = formula.FORM_A_3;
 
-                } else if (bXi && bXf && bVi && bVf) {
+                } else if (xiAlive && xfAlive && viAlive && vfAlive) {
                     acceleration = formula.a_4(initialPos, finalPos, initialVel, finalVel);
                     result = acceleration;
                     formule = formula.FORM_A_4;

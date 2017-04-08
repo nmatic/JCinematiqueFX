@@ -44,7 +44,6 @@ public class JCinematiqueFXUIController implements Initializable {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    
 
     @FXML
     private TextField entryInitialPos;
@@ -76,21 +75,20 @@ public class JCinematiqueFXUIController implements Initializable {
     private ComboBox desiredValue;
     @FXML
     private LineChart<Number, Number> posGraph = new LineChart<>(xAxis, yAxis);
+    @FXML
+    private LineChart<Number, Number> velGraph = new LineChart<>(xAxis, yAxis);
+    @FXML
+    private LineChart<Number, Number> accGraph = new LineChart<>(xAxis, yAxis);
 
-    ;
     private int nbSeries = 1;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
-        try {
-            fillPositionChart(kinetics, "Series " + nbSeries);
-            posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
-            nbSeries++;
-        } catch (Exception e) {
-
-        }
+        posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
+        velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
+        nbSeries++;
     }
 
     @Override
@@ -123,10 +121,23 @@ public class JCinematiqueFXUIController implements Initializable {
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
         Keyframe posKeyframe = new PositionKeyframe(0, INTERVAL, 2.5);
-        for (int i = 0; i < INTERVAL; i++) {
+        for (int i = 0; i <= INTERVAL; i++) {
             posKeyframe.setTime(i);
-            
+
             series.getData().add(new XYChart.Data(i, posKeyframe.posValue(i, obj)));
+        }
+        return series;
+    }
+
+    private XYChart.Series fillVelocityChart(Kinetics obj, String name) {
+        XYChart.Series series = new XYChart.Series();
+        series.setName(name);
+        double INTERVAL = obj.getElapsedTime();
+        Keyframe velKeyframe = new VelocityKeyframe(0, INTERVAL, 2.5);
+        for (int i = 0; i <= INTERVAL; i++) {
+            velKeyframe.setTime(i);
+
+            series.getData().add(new XYChart.Data(i, velKeyframe.velValue(i, obj)));
         }
         return series;
     }
