@@ -21,7 +21,6 @@ public class Kinetics {
     private final String UNIT_ACCELERATION = " m/s²";
     private final String UNIT_TIME = " s";
     private final String IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible to find desired value with given values.";
-    private final String DELTA = "\u0394";
     // Variables de sortie
     private String unit, formule, formuleDonnees, output;
     private double result;
@@ -37,7 +36,6 @@ public class Kinetics {
         this.elapsedTimeStr = elapsedTimeStr;
         this.accelerationStr = accelerationStr;
         this.desiredValue = desiredValue;
-        System.out.println(this.desiredValue);
     }
 
     public String findValue() {
@@ -159,11 +157,10 @@ public class Kinetics {
                     formule = formula.FORM_DT_1;
                     output = formule + "\n" + result + unit;
                 } else if (bXi && bXf && bVi && bA) {
-                    formule = formula.FORM_DT1_3;
-                    formule = formula.FORM_DT2_3;
+                    formule = formula.FORM_DT_3;
                     double result1 = formula.d_t1_3(acceleration, initialPos, finalPos, initialVel);
                     double result2 = formula.d_t2_3(acceleration, initialPos, finalPos, initialVel);
-                    output = result1 + unit + " or " + result2 + unit;
+                    output = formule + "\n" + result1 + unit + " or " + result2 + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }

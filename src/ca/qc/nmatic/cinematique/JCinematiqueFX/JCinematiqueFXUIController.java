@@ -64,10 +64,13 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
-        System.out.println(kinetics.findValue());
         outputField.setText(kinetics.findValue());
-        fillChartWithXSquared();
-        graphChart.getData().add(series);
+        try {
+            fillChartWithXSquared();
+            graphChart.getData().add(series);
+        } catch (Exception e) {
+            
+        }
     }
 
     @Override

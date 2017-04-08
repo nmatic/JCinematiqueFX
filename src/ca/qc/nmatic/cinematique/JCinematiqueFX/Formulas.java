@@ -1,16 +1,20 @@
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
 import org.scilab.forge.jlatexmath.*;
+
 /**
  *
  * @author Victor Babin
  */
 public class Formulas {
-    
+
     //TODO: Terminer les formules
     public final String DELTA = "\u0394";
     public final String HALF = "\u00BD";
-    
+    public final String SQUARED = "\u00B2";
+    public final String RADICAL = "\u23B7";
+    public final String PLUS_MINUS = "\u00B1";
+
     // Formules affichées
     public final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
     public final String FORM_VI_1 = "Vi = -(a" + DELTA + "t - Vf)";
@@ -21,19 +25,17 @@ public class Formulas {
     public final String FORM_VI_2 = "Vi = 2(" + DELTA + "x)/(" + DELTA + "t - Vf)";
     public final String FORM_VF_2 = "Vf = 2(" + DELTA + "x)/(" + DELTA + "t - Vi)";
     public final String FORM_DT_2 = DELTA + "t = " + DELTA + "x / (" + HALF + "(Vi + Vf)";
-    public final String FORM_XF_3 = "Xf = ";
-    public final String FORM_XI_3 = "";
-    public final String FORM_DT1_3 = "";
-    public final String FORM_DT2_3 = "";
-    public final String FORM_VI_3 = "";
-    public final String FORM_A_3 = "";
-    public final String FORM_VF_4 = "";
-    public final String FORM_VI_4 = "";
-    public final String FORM_A_4 = "";
-    public final String FORM_XI_4 = "";
-    public final String FORM_XF_4 = "";
-    
-    
+    public final String FORM_XF_3 = "Xf = Xi + (Vi * " + DELTA + "t) + (" + HALF + "a * (" + DELTA + "t" + SQUARED + "))";
+    public final String FORM_XI_3 = "Xi = (-((Vi * " + DELTA + "t) + (" + HALF + "a * " + DELTA + "t" + SQUARED + ")) - Xf))";
+    public final String FORM_DT_3 = DELTA + "t = (-Vi " + PLUS_MINUS + " " + RADICAL + "((Vi" + SQUARED + ") - 4((a / 2) * (" + DELTA + "x)))) / a";
+    public final String FORM_VI_3 = "Vi = ((" + HALF + "a * (" + DELTA + "t" + SQUARED + ") - (" + DELTA + "x)) / - " + DELTA + "t)";
+    public final String FORM_A_3 = "a = ((Vi * " + DELTA + "t - (" + DELTA + "x)) / (" + DELTA + "t" + SQUARED + ")) / (- " + HALF + ")";
+    public final String FORM_VF_4 = "Vf = " + RADICAL + "((Vi" + SQUARED + ") + 2a(" + DELTA + "x))";
+    public final String FORM_VI_4 = "Vi = " + RADICAL + "(-(2a" + DELTA + "x) - (Vf" + SQUARED + ")))";
+    public final String FORM_A_4 = "a = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2 * " + DELTA + "x))";
+    public final String FORM_XI_4 = "Xi = -((((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / (2a)) - Xf)";
+    public final String FORM_XF_4 = "Xf = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2a) + Xi";
+
     // Formules calculées
     public double vf_1(double a, double vi, double d_t) {
         return (vi + a * d_t);
