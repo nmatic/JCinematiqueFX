@@ -70,21 +70,22 @@ public class Kinetics {
         } catch (NumberFormatException e) {
             return "Bad input, try again.";
         }
-
         switch (desiredValue) {
             case "Initial position":
                 unit = UNIT_DISTANCE;
                 if (bXf && bVi && bVf && bDt) {
                     result = formula.xi_2(finalPos, initialVel, finalVel, elapsedTime);
-                    formule = "Xi = -½ *(Vi + Vf)* " + DELTA + "t - Xf";
+                    formule = formula.FORM_XI_2;
                     formuleDonnees = "Xi = -½ * (" + initialVel + " + " + finalVel + ") * " + elapsedTime + " - " + finalPos;
                     output = formule + "\n" + formuleDonnees + "\n" + "Xi = " + result + unit;
                 } else if (bA && bXf && bVi && bDt) {
                     result = formula.xi_3(acceleration, finalPos, initialVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_XI_3;
+                    output = formule + "\n" + result + unit;
                 } else if (bVi && bVf && bA && bXf) {
                     result = formula.xi_4(initialVel, finalVel, acceleration, finalPos);
-                    output = result + unit;
+                    formule = formula.FORM_XI_4;
+                    output = formule + "\n" + result + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }
@@ -93,13 +94,16 @@ public class Kinetics {
                 unit = UNIT_DISTANCE;
                 if (bXi && bVi && bVf && bDt) {
                     result = formula.xf_2(initialPos, initialVel, finalVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_XF_2;
+                    output = formule + "\n" + result + unit;
                 } else if (bA && bXi && bVi && bDt) {
                     result = formula.xf_3(acceleration, initialPos, initialVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_XF_3;
+                    output = formule + "\n" + result + unit;
                 } else if (bXi && bVi && bVf && bA) {
                     result = formula.xf_4(initialVel, finalVel, acceleration, initialPos);
-                    output = result + unit;
+                    formule = formula.FORM_XF_4;
+                    output = formule + "\n" + result + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }
@@ -108,16 +112,20 @@ public class Kinetics {
                 unit = UNIT_VELOCITY;
                 if (bA && bVf && bDt) {
                     result = formula.vi_1(acceleration, finalVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_VI_1;
+                    output = formule + "\n" + result + unit;
                 } else if (bXf && bXi && bVf && bDt) {
                     result = formula.vi_2(initialPos, finalPos, finalVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_VI_2;
+                    output = formule + "\n" + result + unit;
                 } else if (bXf && bXi && bA && bDt) {
                     result = formula.vi_3(initialPos, finalPos, acceleration, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_VI_3;
+                    output = formule + "\n" + result + unit;
                 } else if (bXf && bXi && bVf && bA) {
                     result = formula.vi_4(initialPos, finalPos, finalVel, acceleration);
-                    output = result + unit;
+                    formule = formula.FORM_VI_4;
+                    output = formule + "\n" + result + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }
@@ -125,15 +133,17 @@ public class Kinetics {
             case "Final velocity":
                 unit = UNIT_VELOCITY;
                 if (bA && bDt && bVi) {
-                    formule = "Vf = Vi * a\u0394t";
                     result = formula.vf_1(acceleration, initialVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_VF_1;
+                    output = formule + "\n" + result + unit;
                 } else if (bXf && bXi && bVi && bDt) {
                     result = formula.vf_2(initialPos, finalPos, initialVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_VF_2;
+                    output = formule + "\n" + result + unit;
                 } else if (bXf && bXi && bVi && bA) {
                     result = formula.vf_4(initialPos, finalPos, initialVel, acceleration);
-                    output = result + unit;
+                    formule = formula.FORM_VF_4;
+                    output = formule + "\n" + result + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }
@@ -142,11 +152,15 @@ public class Kinetics {
                 unit = UNIT_TIME;
                 if (bVi && bVf && bA) {
                     result = formula.d_t_1(initialVel, finalVel, acceleration);
-                    output = result + unit;
+                    formule = formula.FORM_DT_1;
+                    output = formule + "\n" + result + unit;
                 } else if (bXi && bXf && bVi && bVf) {
                     result = formula.d_t_2(initialPos, finalPos, initialVel, finalVel);
-                    output = result + unit;
+                    formule = formula.FORM_DT_1;
+                    output = formule + "\n" + result + unit;
                 } else if (bXi && bXf && bVi && bA) {
+                    formule = formula.FORM_DT1_3;
+                    formule = formula.FORM_DT2_3;
                     double result1 = formula.d_t1_3(acceleration, initialPos, finalPos, initialVel);
                     double result2 = formula.d_t2_3(acceleration, initialPos, finalPos, initialVel);
                     output = result1 + unit + " or " + result2 + unit;
@@ -158,13 +172,16 @@ public class Kinetics {
                 unit = UNIT_ACCELERATION;
                 if (bVi && bVf && bDt) {
                     result = formula.a_1(initialVel, finalVel, elapsedTime);
-                    output = result + unit;
+                    formule = formula.FORM_A_1;
+                    output = formule + "\n" + result + unit;
                 } else if (bXi && bXf && bVi && bDt) {
                     result = formula.a_3(initialPos, finalPos, elapsedTime, initialVel);
-                    output = result + unit;
+                    formule = formula.FORM_A_3;
+                    output = formule + "\n" + result + unit;
                 } else if (bXi && bXf && bVi && bVf) {
                     result = formula.a_4(initialPos, finalPos, initialVel, finalVel);
-                    output = result + unit;
+                    formule = formula.FORM_A_4;
+                    output = formule + "\n" + result + unit;
                 } else {
                     output = IMPOSSIBLE_WITH_GIVEN_VALUES;
                 }
