@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.JCinematiqueFX.JCinematiqueFXUIController">
+<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.UI.JCinematiqueFXUIController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="781.0" AnchorPane.bottomAnchor="516.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
