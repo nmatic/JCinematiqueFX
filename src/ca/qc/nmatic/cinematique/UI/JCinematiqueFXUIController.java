@@ -17,6 +17,7 @@
 package ca.qc.nmatic.cinematique.UI;
 
 import ca.qc.nmatic.cinematique.JCinematiqueFX.*;
+import ca.qc.nmatic.cinematique.Keyframes.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -43,7 +44,7 @@ public class JCinematiqueFXUIController implements Initializable {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    XYChart.Series series = new XYChart.Series();
+    
 
     @FXML
     private TextField entryInitialPos;
@@ -74,17 +75,19 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private ComboBox desiredValue;
     @FXML
-    private LineChart<Number, Number> graphChart = new LineChart<>(xAxis, yAxis);
+    private LineChart<Number, Number> posGraph = new LineChart<>(xAxis, yAxis);
 
     ;
+    private int nbSeries = 1;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
         try {
-            fillChartWithXSquared();
-            graphChart.getData().add(series);
+            fillPositionChart(kinetics, "Series " + nbSeries);
+            posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
+            nbSeries++;
         } catch (Exception e) {
 
         }
@@ -104,94 +107,27 @@ public class JCinematiqueFXUIController implements Initializable {
         entryFinalVel.setText("");
         entryInitialPos.setText("");
         entryInitialVel.setText("");
+        desiredValue.setValue("- SELECT -");
+        desiredValue.setItems(chosenValue);
+        posGraph.getData().clear();
+        nbSeries = 0;
     }
 
     @FXML
     public void resetButton() {
         resetFields();
-//        showFields();
     }
 
-    @FXML
-    private void showFields() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    private void fillChartWithXSquared() {
-        for (int i = 1; i < 30; i++) {
-            series.getData().add(new XYChart.Data(i, (i * i)));
+    private XYChart.Series fillPositionChart(Kinetics obj, String name) {
+        XYChart.Series series = new XYChart.Series();
+        series.setName(name);
+        double INTERVAL = obj.getElapsedTime();
+        Keyframe posKeyframe = new PositionKeyframe(0, INTERVAL, 2.5);
+        for (int i = 0; i < INTERVAL; i++) {
+            posKeyframe.setTime(i);
+            
+            series.getData().add(new XYChart.Data(i, posKeyframe.posValue(i, obj)));
         }
-
+        return series;
     }
-
-    private void fillPositionChart() {
-        for (int i = 1; i < 30; i++) {
-            series.getData().add(new XYChart.Data(i, (i * i)));
-        }
-    }
-
-    private int desiredId(String value) {
-        switch (value) {
-            case "Initial position":
-                return 1;
-            case "Final position":
-                return 2;
-            case "Initial velocity":
-                return 3;
-            case "Final velocity":
-                return 4;
-            case "Elapsed time":
-                return 5;
-            case "Acceleration":
-                return 6;
-            default:
-                return 0;
-        }
-    }
-//    @FXML
-//    public void hideUnused(String valeurRecherche) {
-//        showFields();
-//        switch(valeurRecherche){
-//            case 1:
-////                labelInitialPos.setVisible(false);
-//                entryInitialPos.setEditable(false);
-//                break;
-//            case 2:
-////                labelFinalPos.setVisible(false);
-//                valeurXf.setVisible(false);
-//                break;
-//            case 3:
-////                labelInitialVel.setVisible(false);
-//                valeurVi.setVisible(false);    
-//		break;
-//            case 4:
-////                labelFinalVel.setVisible(false);
-//                valeurVf.setVisible(false);   
-//                break;
-//            case 5:
-////                labelElapsedTime.setVisible(false);
-//                valeurDt.setVisible(false);    
-//                break;
-//            case 6:
-////                labelAcceleration.setVisible(false);
-//                valeurA.setVisible(false);  
-//                break;
-//        }
-//    }                  
-//    public void menuResetActionPerformed() {                                          
-//        resetButton();
-//    }                                         
-//
-//    public void menuQuitterActionPerformed() {                                            
-//        System.exit(0);
-//    }                                           
-//
-//    public void menuCommentActionPerformed() {                                            
-//        JOptionPane.showMessageDialog(new JFrame(), "1. Choisir la donnée recherchée." + "\n 2. Entrer seulement les valeurs connues." + "\n 3. Appuyer sur le bouton \"Calculer\".", "Aide", JOptionPane.PLAIN_MESSAGE);
-//    }                                           
-//
-//    public void menuAboutActionPerformed() {                                          
-//        JOptionPane.showMessageDialog(new JFrame(), "(c)2016 Victor Babin" + "\n Calculateur de la cinématique en Java" + "\n https://github.com/vicbab ", "À propos", JOptionPane.PLAIN_MESSAGE);
-//    }     
-
 }

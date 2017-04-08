@@ -23,7 +23,7 @@ package ca.qc.nmatic.cinematique.Keyframes;
 public class AccelerationKeyframe extends Keyframe{
     private double acceleration;
     
-    public AccelerationKeyframe(double time, double interval, double acceleration) {
+    public AccelerationKeyframe(int time, double interval, double acceleration) {
         super(time, interval, acceleration);
     }
     

@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Administrateur
+ * @author Victor Babin
  */
 public class Main extends Application {
     
@@ -36,7 +36,6 @@ public class Main extends Application {
         
         stage.setScene(scene);
         stage.show();
-        System.out.println("\u00BC");
     }
 
     /**

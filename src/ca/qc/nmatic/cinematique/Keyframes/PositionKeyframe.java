@@ -23,7 +23,7 @@ package ca.qc.nmatic.cinematique.Keyframes;
 public class PositionKeyframe extends Keyframe{
     private double position;
     
-    public PositionKeyframe(double time, double interval, double position) {
+    public PositionKeyframe(int time, double interval, double position) {
         super(time, interval, position);
     }    
 }

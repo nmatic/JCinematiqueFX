@@ -16,24 +16,38 @@
  */
 package ca.qc.nmatic.cinematique.Keyframes;
 
+import ca.qc.nmatic.cinematique.*;
+import ca.qc.nmatic.cinematique.JCinematiqueFX.Kinetics;
+import java.util.ArrayList;
+import javafx.scene.chart.XYChart;
+
 /**
  *
  * @author Victor Babin
  */
 public class Keyframe {
-    private double time, interval, value;
 
-    public Keyframe(double time, double interval, double value) {
+    private int time;
+    private double interval, value;
+    private ArrayList<Double> chartData;
+
+    public Keyframe(int time, double interval, double value) {
+        this.chartData = new ArrayList<Double>();
         this.time = time;
         this.interval = interval;
         this.value = value;
+    }
+
+    public double getCoords(int time) {
+        chartData.add(time, value);
+        return chartData.get(time);
     }
 
     public double getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -52,7 +66,27 @@ public class Keyframe {
     public void setValue(double value) {
         this.value = value;
     }
-    
-    
-    
+
+    public ArrayList<Double> getChartData() {
+        return chartData;
+    }
+
+    public void setChartData(ArrayList<Double> chartData) {
+        this.chartData = chartData;
+    }
+
+    public double posValue(int time, Kinetics obj) {
+        if (time == 0) {
+            obj.setDesiredValue("Initial Position");
+            obj.findValue();
+            return obj.getInitialPos();
+        } else {
+            obj.setDesiredValue("Final Position");
+            obj.setElapsedTime(time);
+            obj.setInitialPos(time - 1);
+            obj.findValue();
+            return obj.getFinalPos();
+        }
+    }
+
 }

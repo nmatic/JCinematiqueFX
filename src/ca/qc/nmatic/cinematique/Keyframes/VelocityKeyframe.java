@@ -23,7 +23,7 @@ package ca.qc.nmatic.cinematique.Keyframes;
 public class VelocityKeyframe extends Keyframe{
     private double velocity;
     
-    public VelocityKeyframe(double time, double interval, double velocity) {
+    public VelocityKeyframe(int time, double interval, double velocity) {
         super(time, interval, velocity);
     }
     
