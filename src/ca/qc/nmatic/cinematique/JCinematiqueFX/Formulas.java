@@ -7,6 +7,7 @@ import org.scilab.forge.jlatexmath.*;
  */
 public class Formulas {
     
+    //TODO: Terminer les formules
     public final String DELTA = "\u0394";
     public final String HALF = "\u00BD";
     public final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
@@ -17,7 +18,8 @@ public class Formulas {
     public final String FOMR_XI_2 = "Xi = -(" + HALF + "(Vi + Vf) * " + DELTA + "t - Xf)";
     public final String FORM_VI_2 = "Vi = 2(" + DELTA + "x)/(" + DELTA + "t - Vf)";
     public final String FORM_VF_2 = "Vf = 2(" + DELTA + "x)/(" + DELTA + "t - Vi)";
-    public final String FORM_DT_2 = "(xf - xi) / (0.5 * (vi + vf))";
+    public final String FORM_DT_2 = DELTA + "t = " + DELTA + "x / (" + HALF + "(Vi + Vf)";
+    public final String FORM_XF_3 = "Xf = ";
     
     public double vf_1(double a, double vi, double d_t) {
         return (vi + a * d_t);
