@@ -33,6 +33,7 @@ public class Formulas {
 
     // Formules affichées
     public final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
+    public final String LATEX_VF_1 = "V_{f} = V_{i} + a\\Delta t";
     public final String FORM_VI_1 = "Vi = -(a" + DELTA + "t - Vf)";
     public final String FORM_A_1 = "a = (" + DELTA + "v )/" + DELTA + "t";
     public final String FORM_DT_1 = DELTA + "t = " + DELTA + "v/a";
@@ -53,7 +54,7 @@ public class Formulas {
     public final String FORM_XF_4 = "Xf = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2a) + Xi";
 
     // LaTeX Formulas:
-    
+    public final TeXFormula formula = new TeXFormula(LATEX_VF_1);
     
     // Formules calculées
     public double vf_1(double a, double vi, double d_t) {

@@ -16,6 +16,8 @@
  */
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
+import java.awt.Color;
+
 /**
  *
  * @author Victor Babin
@@ -58,6 +60,7 @@ public class Kinetics {
         this.elapsedTimeStr = elapsedTimeStr;
         this.accelerationStr = accelerationStr;
         this.desiredValue = desiredValue;
+        formula.formula.createPNG(0, 0, formula.LATEX_VF_1, Color.white, Color.black);
     }
 
     public boolean isXiAlive() {

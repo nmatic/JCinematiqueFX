@@ -32,6 +32,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
 
 /**
  *
@@ -80,6 +82,9 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private LineChart<Number, Number> accGraph = new LineChart<>(xAxis, yAxis);
 
+    @FXML
+    private WebView latexOut = new WebView();
+
     private int nbSeries = 1;
 
     @FXML
@@ -95,6 +100,8 @@ public class JCinematiqueFXUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         desiredValue.setValue("- SELECT -");
         desiredValue.setItems(chosenValue);
+        WebEngine webEngine = latexOut.getEngine();
+        webEngine.load("C:/Users/Administrateur/Documents/NetBeansProjects/JCinematiqueFX/src/ca/qc/nmatic/cinematique/html/equation.html");
     }
 
     @FXML
@@ -114,9 +121,9 @@ public class JCinematiqueFXUIController implements Initializable {
         resetFields();
         resetCharts();
     }
-    
+
     @FXML
-    public void resetCharts(){
+    public void resetCharts() {
         posGraph.getData().clear();
         velGraph.getData().clear();
         accGraph.getData().clear();
@@ -148,4 +155,15 @@ public class JCinematiqueFXUIController implements Initializable {
         }
         return series;
     }
+
+//    public void Browser() {
+//        //apply the styles
+//        getStyleClass().add("browser");
+//        // load the web page
+//        webEngine.load("http://www.oracle.com/products/index.html");
+//        //add the web view to the scene
+//        getChildren().add(browser);
+//
+//    }
 }
+

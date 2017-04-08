@@ -92,7 +92,7 @@
             </Tab>
             <Tab text="LaTeX output">
                <content>
-                  <WebView prefHeight="200.0" prefWidth="200.0" />
+                  <WebView fx:id="latexOut" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </Tab>
          </tabs>
