@@ -1,11 +1,23 @@
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
+import org.scilab.forge.jlatexmath.*;
 /**
  *
  * @author Victor Babin
  */
 public class Formulas {
-
+    
+    public final String DELTA = "\u0394";
+    public final String HALF = "\u00BD";
+    public final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
+    public final String FORM_VI_1 = "Vi = -(a" + DELTA + "t - Vf)";
+    public final String FORM_A_1 = "a = (" + DELTA + "v )/" + DELTA + "t";
+    public final String FORM_DT_1 = DELTA + "t = " + DELTA + "v/a";
+    public final String FORM_XF_2 = "Xf = Xi + " + HALF + "(Vi + Vf) * " + DELTA + "t";
+    public final String FOMR_XI_2 = "Xi = -(" + HALF + "(Vi + Vf) * " + DELTA + "t - Xf)";
+    public final String FORM_VI_2 = "Vi = 2(" + DELTA + "x)/(" + DELTA + "t - Vf)";
+    public final String FORM_VF_2 = "Vf = 2(" + DELTA + "x)/(" + DELTA + "t - Vi)";
+    public final String FORM_DT_2 = "(xf - xi) / (0.5 * (vi + vf))";
     
     public double vf_1(double a, double vi, double d_t) {
         return (vi + a * d_t);
