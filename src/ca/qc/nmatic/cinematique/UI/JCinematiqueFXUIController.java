@@ -107,13 +107,20 @@ public class JCinematiqueFXUIController implements Initializable {
         entryInitialVel.setText("");
         desiredValue.setValue("- SELECT -");
         desiredValue.setItems(chosenValue);
-        posGraph.getData().clear();
-        nbSeries = 0;
     }
 
     @FXML
     public void resetButton() {
         resetFields();
+        resetCharts();
+    }
+    
+    @FXML
+    public void resetCharts(){
+        posGraph.getData().clear();
+        velGraph.getData().clear();
+        accGraph.getData().clear();
+        nbSeries = 0;
     }
 
     private XYChart.Series fillPositionChart(Kinetics obj, String name) {

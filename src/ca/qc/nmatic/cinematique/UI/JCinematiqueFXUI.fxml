@@ -18,10 +18,11 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" accessibleText="JCinematiqueFX" prefHeight="541.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.UI.JCinematiqueFXUIController">
+<AnchorPane id="AnchorPane" accessibleText="JCinematiqueFX" prefHeight="568.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.UI.JCinematiqueFXUIController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="781.0" AnchorPane.bottomAnchor="516.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="781.0" AnchorPane.bottomAnchor="543.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -42,7 +43,7 @@
         </menus>
       </MenuBar>
       <Button layoutX="498.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="17.0" prefWidth="270.0" text="Graph" />
-      <TabPane fx:id="graphPane" layoutX="25.0" layoutY="72.0" prefHeight="300.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="graphPane" layoutX="25.0" layoutY="45.0" prefHeight="300.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab fx:id="posTab" text="Position">
                <content>
@@ -82,14 +83,27 @@
             </Tab>
          </tabs>
       </TabPane>
-      <TextArea fx:id="outputField" editable="false" layoutX="25.0" layoutY="378.0" prefHeight="149.0" prefWidth="462.0" promptText="Output" wrapText="true" />
-      <TableView layoutX="498.0" layoutY="378.0" prefHeight="149.0" prefWidth="270.0">
+      <TabPane layoutX="25.0" layoutY="359.0" prefHeight="191.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Output">
+               <content>
+                  <TextArea fx:id="outputField" editable="false" prefHeight="143.0" prefWidth="440.0" wrapText="true" />
+               </content>
+            </Tab>
+            <Tab text="LaTeX output">
+               <content>
+                  <WebView prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <TableView layoutX="498.0" layoutY="359.0" prefHeight="191.0" prefWidth="270.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button layoutX="498.0" layoutY="334.0" mnemonicParsing="false" onAction="#resetFields" prefHeight="17.0" prefWidth="270.0" text="Reset" />
+      <Button layoutX="498.0" layoutY="327.0" mnemonicParsing="false" onAction="#resetFields" prefHeight="17.0" prefWidth="270.0" text="Reset" />
       <TabPane fx:id="valuesPane" layoutX="501.0" layoutY="74.0" prefHeight="219.0" prefWidth="270.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="oneDimTab" text="1D">
@@ -219,7 +233,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <ComboBox fx:id="desiredValue" layoutX="589.0" layoutY="49.0" prefHeight="25.0" prefWidth="182.0" promptText="Desired value" />
-      <Label layoutX="501.0" layoutY="53.0" prefHeight="17.0" prefWidth="90.0" text="Desired value:" />
+      <ComboBox fx:id="desiredValue" layoutX="591.0" layoutY="41.0" prefHeight="25.0" prefWidth="182.0" promptText="Desired value" />
+      <Label layoutX="501.0" layoutY="45.0" prefHeight="17.0" prefWidth="90.0" text="Desired value:" />
    </children>
 </AnchorPane>

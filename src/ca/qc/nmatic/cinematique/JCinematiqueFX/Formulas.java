@@ -52,6 +52,9 @@ public class Formulas {
     public final String FORM_XI_4 = "Xi = -((((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / (2a)) - Xf)";
     public final String FORM_XF_4 = "Xf = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2a) + Xi";
 
+    // LaTeX Formulas:
+    
+    
     // Formules calculées
     public double vf_1(double a, double vi, double d_t) {
         return (vi + a * d_t);
