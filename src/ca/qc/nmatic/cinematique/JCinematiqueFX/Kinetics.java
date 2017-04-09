@@ -61,7 +61,6 @@ public class Kinetics {
     }
 
     public Kinetics(String initialPosStr, String finalPosStr, String initialVelStr, String finalVelStr, String elapsedTimeStr, String accelerationStr, String desiredValue) {
-        this.latexFormula = formula.LATEX_DT_1;
         this.initialPosStr = initialPosStr;
         this.finalPosStr = finalPosStr;
         this.initialVelStr = initialVelStr;
@@ -213,16 +212,18 @@ public class Kinetics {
                     initialPos = formula.xi_2(finalPos, initialVel, finalVel, elapsedTime);
                     result = initialPos;
                     formule = formula.FORM_XI_2;
-
+                    latexFormula = formula.LATEX_XI_2;
                 } else if (aAlive && xfAlive && viAlive && dtAlive) {
                     initialPos = formula.xi_3(acceleration, finalPos, initialVel, elapsedTime);
                     result = initialPos;
                     formule = formula.FORM_XI_3;
+                    latexFormula = formula.LATEX_XI_3;
 
                 } else if (viAlive && vfAlive && aAlive && xfAlive) {
                     initialPos = formula.xi_4(initialVel, finalVel, acceleration, finalPos);
                     result = initialPos;
                     formule = formula.FORM_XI_4;
+                    latexFormula = formula.LATEX_XI_4;
 
                 } else {
                     return IMPOSSIBLE_WITH_GIVEN_VALUES;
@@ -234,16 +235,19 @@ public class Kinetics {
                     finalPos = formula.xf_2(initialPos, initialVel, finalVel, elapsedTime);
                     result = finalPos;
                     formule = formula.FORM_XF_2;
+                    latexFormula = formula.LATEX_XF_2;
 
                 } else if (aAlive && xiAlive && viAlive && dtAlive) {
                     finalPos = formula.xf_3(acceleration, initialPos, initialVel, elapsedTime);
                     result = finalPos;
                     formule = formula.FORM_XF_3;
+                    latexFormula = formula.LATEX_XF_3;
 
                 } else if (xiAlive && viAlive && vfAlive && aAlive) {
                     finalPos = formula.xf_4(initialVel, finalVel, acceleration, initialPos);
                     result = finalPos;
                     formule = formula.FORM_XF_4;
+                    latexFormula = formula.LATEX_XF_4;
 
                 } else {
                     return IMPOSSIBLE_WITH_GIVEN_VALUES;
@@ -255,21 +259,25 @@ public class Kinetics {
                     initialVel = formula.vi_1(acceleration, finalVel, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_1;
+                    latexFormula = formula.LATEX_VI_1;
 
                 } else if (xfAlive && xiAlive && vfAlive && dtAlive) {
                     initialVel = formula.vi_2(initialPos, finalPos, finalVel, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_2;
+                    latexFormula = formula.LATEX_VI_2;
 
                 } else if (xfAlive && xiAlive && aAlive && dtAlive) {
                     initialVel = formula.vi_3(initialPos, finalPos, acceleration, elapsedTime);
                     result = initialVel;
                     formule = formula.FORM_VI_3;
+                    latexFormula = formula.LATEX_VI_3;
 
                 } else if (xfAlive && xiAlive && vfAlive && aAlive) {
                     initialVel = formula.vi_4(initialPos, finalPos, finalVel, acceleration);
                     result = initialVel;
                     formule = formula.FORM_VI_4;
+                    latexFormula = formula.LATEX_VI_4;
 
                 } else {
                     return IMPOSSIBLE_WITH_GIVEN_VALUES;
@@ -281,16 +289,19 @@ public class Kinetics {
                     finalVel = formula.vf_1(acceleration, initialVel, elapsedTime);
                     result = finalVel;
                     formule = formula.FORM_VF_1;
+                    latexFormula = formula.LATEX_VF_1;
 
                 } else if (xfAlive && xiAlive && viAlive && dtAlive) {
                     finalVel = formula.vf_2(initialPos, finalPos, initialVel, elapsedTime);
                     result = finalVel;
                     formule = formula.FORM_VF_2;
+                    latexFormula = formula.LATEX_VF_2;
 
                 } else if (xfAlive && xiAlive && viAlive && aAlive) {
                     finalVel = formula.vf_4(initialPos, finalPos, initialVel, acceleration);
                     result = finalVel;
                     formule = formula.FORM_VF_4;
+                    latexFormula = formula.LATEX_VF_4;
 
                 } else {
                     return IMPOSSIBLE_WITH_GIVEN_VALUES;
@@ -302,14 +313,18 @@ public class Kinetics {
                     elapsedTime = formula.d_t_1(initialVel, finalVel, acceleration);
                     result = elapsedTime;
                     formule = formula.FORM_DT_1;
+                    latexFormula = formula.LATEX_DT_1;
 
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
                     elapsedTime = formula.d_t_2(initialPos, finalPos, initialVel, finalVel);
                     result = elapsedTime;
-                    formule = formula.FORM_DT_1;
+                    formule = formula.FORM_DT_2;
+                    latexFormula = formula.LATEX_DT_2;
 
                 } else if (xiAlive && xfAlive && viAlive && aAlive) {
                     formule = formula.FORM_DT_3;
+                    latexFormula = formula.LATEX_DT_3;
+
                     double result1 = formula.d_t1_3(acceleration, initialPos, finalPos, initialVel);
                     double result2 = formula.d_t2_3(acceleration, initialPos, finalPos, initialVel);
                     if (result1 > 0) {
@@ -329,16 +344,19 @@ public class Kinetics {
                     acceleration = formula.a_1(initialVel, finalVel, elapsedTime);
                     result = acceleration;
                     formule = formula.FORM_A_1;
+                    latexFormula = formula.LATEX_A_1;
 
                 } else if (xiAlive && xfAlive && viAlive && dtAlive) {
                     acceleration = formula.a_3(initialPos, finalPos, elapsedTime, initialVel);
                     result = acceleration;
                     formule = formula.FORM_A_3;
+                    latexFormula = formula.LATEX_A_3;
 
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
                     acceleration = formula.a_4(initialPos, finalPos, initialVel, finalVel);
                     result = acceleration;
                     formule = formula.FORM_A_4;
+                    latexFormula = formula.LATEX_A_4;
 
                 } else {
                     return IMPOSSIBLE_WITH_GIVEN_VALUES;
@@ -349,6 +367,5 @@ public class Kinetics {
         }
         return formule + "\n" + result + unit;
     }
-
 
 }

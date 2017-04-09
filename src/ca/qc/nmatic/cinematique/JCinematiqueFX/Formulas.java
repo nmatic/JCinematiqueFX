@@ -52,25 +52,25 @@ public class Formulas {
     public final String FORM_XI_4 = "Xi = -((((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / (2a)) - Xf)";
     public final String FORM_XF_4 = "Xf = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2a) + Xi";
 
-    public final String LATEX_VF_1 = "V_{f} = V_{i} + a\\Delta t";
-    public final String LATEX_VI_1 = "V_{i} = -(a\\Delta t - V_{f})";
+    public final String LATEX_VF_1 = "v_{f} = v_{i} + a\\Delta t";
+    public final String LATEX_VI_1 = "v_{i} = -(a\\Delta t - v_{f})";
     public final String LATEX_A_1 = "a = \\frac{\\Delta v}{\\Delta t}";
     public final String LATEX_DT_1 = "\\Delta t = \\frac{\\Delta v}{a}";
-    public final String LATEX_XF_2 = "Xf = Xi + " + HALF + "(Vi + Vf) * " + DELTA + "t";
-    public final String LATEX_XI_2 = "Xi = -(" + HALF + "(Vi + Vf) * " + DELTA + "t - Xf)";
-    public final String LATEX_VI_2 = "Vi = 2(" + DELTA + "x)/(" + DELTA + "t - Vf)";
-    public final String LATEX_VF_2 = "Vf = 2(" + DELTA + "x)/(" + DELTA + "t - Vi)";
-    public final String LATEX_DT_2 = DELTA + "t = " + DELTA + "x / (" + HALF + "(Vi + Vf)";
-    public final String LATEX_XF_3 = "Xf = Xi + (Vi * " + DELTA + "t) + (" + HALF + "a * (" + DELTA + "t" + SQUARED + "))";
-    public final String LATEX_XI_3 = "Xi = (-((Vi * " + DELTA + "t) + (" + HALF + "a * " + DELTA + "t" + SQUARED + ")) - Xf))";
-    public final String LATEX_DT_3 = DELTA + "t = (-Vi " + PLUS_MINUS + " " + RADICAL + "((Vi" + SQUARED + ") - 4((a / 2) * (" + DELTA + "x)))) / a";
-    public final String LATEX_VI_3 = "Vi = ((" + HALF + "a * (" + DELTA + "t" + SQUARED + ") - (" + DELTA + "x)) / - " + DELTA + "t)";
-    public final String LATEX_A_3 = "a = ((Vi * " + DELTA + "t - (" + DELTA + "x)) / (" + DELTA + "t" + SQUARED + ")) / (- " + HALF + ")";
-    public final String LATEX_VF_4 = "Vf = " + RADICAL + "((Vi" + SQUARED + ") + 2a(" + DELTA + "x))";
-    public final String LATEX_VI_4 = "Vi = " + RADICAL + "(-(2a" + DELTA + "x) - (Vf" + SQUARED + ")))";
-    public final String LATEX_A_4 = "a = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2 * " + DELTA + "x))";
-    public final String LATEX_XI_4 = "Xi = -((((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / (2a)) - Xf)";
-    public final String LATEX_XF_4 = "Xf = (((Vf" + SQUARED + ") - (Vi" + SQUARED + ")) / 2a) + Xi";
+    public final String LATEX_XF_2 = "x_{f} = x{i} + \\frac{1}{2} (v{i} + v{f})\\Delta t";
+    public final String LATEX_XI_2 = "x{i} = -(\\frac{1}{2}(v{i} + v{f})\\Delta t - x{f})";
+    public final String LATEX_VI_2 = "v{i} = 2(\\Delta x)/(\\Delta t - v{f})";
+    public final String LATEX_VF_2 = "v{f} = 2(\\Delta x)/(\\Delta t - v{i})";
+    public final String LATEX_DT_2 = "\\Delta t = \\Delta x / (\\frac{1}{2}(v{i} + v{f})";
+    public final String LATEX_XF_3 = "x{f} = x{i} + (v{i} * \\Delta t) + (\\frac{1}{2}a * (\\Delta t^{2}))";
+    public final String LATEX_XI_3 = "x{i} = -\\left (v{i} * \\Delta t) + (\\frac{1}{2}a * \\Delta t^{2})) - x{f} \\right";
+    public final String LATEX_DT_3 = "\\Delta t = \\frac{-v{i} \\pm \\sqrt{((v{i}^{2}) - 4((a / 2) * (\\Delta x)))}}{a}";
+    public final String LATEX_VI_3 = "v{i} = \\frac{((\\frac{1}{2}a * (\\Delta t^{2}) - (\\Delta x))}{-\\Delta t}";
+    public final String LATEX_A_3 = "a = \\frac{v{i}\\Delta t - \\Delta x}{\\Delta t^{2}}\\;/\\;- \\frac{1}{2}";
+    public final String LATEX_VF_4 = "v{f} = \\sqrt{(v{i}^{2}) + 2a\\Delta x}";
+    public final String LATEX_VI_4 = "v{i} = \\sqrt{-(2a\\Delta x) - (v{f}^{2})}";
+    public final String LATEX_A_4 = "a = \\frac{((v{f}^{2}) - (v{i}^{2}))}{2}\\;\\Delta x)";
+    public final String LATEX_XI_4 = "x{i} = -\\left \\frac{(v{f}^{2} - v{i}^{2})}{2a} - x{f} \\right";
+    public final String LATEX_XF_4 = "x{f} = \\frac{(v{f}^{2} - v{i}^{2})}{2a} + x{i}";
 
     // LaTeX Formulas:
     public final TeXFormula formula = new TeXFormula(LATEX_VF_1);
