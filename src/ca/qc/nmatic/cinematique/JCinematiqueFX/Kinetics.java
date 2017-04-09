@@ -374,7 +374,7 @@ public class Kinetics {
                 }
                 break;
             default:
-                latexOut = "Please\\; choose\\; unknown\\; value.";
+                latexOut = "\\displaystyle Please\\; choose\\; unknown\\; value.";
                 return "Please choose the unknown value.";
         }
         withoutError = true;

@@ -81,7 +81,7 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="498.0" layoutY="327.0" mnemonicParsing="false" onAction="#resetFields" prefHeight="17.0" prefWidth="270.0" text="Reset" />
+      <Button layoutX="498.0" layoutY="327.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="25.0" prefWidth="135.0" text="Reset all" />
       <TabPane fx:id="valuesPane" layoutX="501.0" layoutY="74.0" prefHeight="219.0" prefWidth="270.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="oneDimTab" text="1D">
@@ -238,5 +238,6 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <Button layoutX="633.0" layoutY="327.0" mnemonicParsing="false" onAction="#resetCharts" prefHeight="25.0" prefWidth="135.0" text="Reset charts" />
    </children>
 </AnchorPane>
