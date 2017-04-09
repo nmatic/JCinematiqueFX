@@ -16,10 +16,8 @@
  */
 package ca.qc.nmatic.cinematique.Keyframes;
 
-import ca.qc.nmatic.cinematique.*;
 import ca.qc.nmatic.cinematique.JCinematiqueFX.Kinetics;
 import java.util.ArrayList;
-import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -32,7 +30,7 @@ public class Keyframe {
     private ArrayList<Double> chartData;
 
     public Keyframe(int time, double interval, double value) {
-        this.chartData = new ArrayList<Double>();
+        this.chartData = new ArrayList<>();
         this.time = time;
         this.interval = interval;
         this.value = value;
@@ -119,4 +117,9 @@ public class Keyframe {
         }
     }
 
-}
+    public double accValue(int time, Kinetics actualKeyframe) {
+        
+        return actualKeyframe.getAcceleration();
+        }
+    }
+

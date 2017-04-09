@@ -20,14 +20,9 @@ import ca.qc.nmatic.cinematique.JCinematiqueFX.*;
 import ca.qc.nmatic.cinematique.Keyframes.*;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,8 +37,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
-import org.apache.commons.io.FileUtils;
 import java.io.FileWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,11 +53,6 @@ public class JCinematiqueFXUIController implements Initializable {
     NumberAxis yAxis = new NumberAxis();
     LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-    private File htmlTemplateFile;
-    private String htmlString;
-    private CharSequence body;
-    private File htmlFile;
-    
     @FXML
     private TextField entryInitialPos;
     @FXML
@@ -75,18 +66,6 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private TextField entryAcceleration;
     @FXML
-    private Label labelInitialPos;
-    @FXML
-    private Label labelFinalPos;
-    @FXML
-    private Label labelInitialVel;
-    @FXML
-    private Label labelFinalVel;
-    @FXML
-    private Label labelElapsedTime;
-    @FXML
-    private Label labelAcceleration;
-    @FXML
     private TextArea outputField;
     @FXML
     private ComboBox desiredValue;
@@ -96,12 +75,9 @@ public class JCinematiqueFXUIController implements Initializable {
     private LineChart<Number, Number> velGraph = new LineChart<>(xAxis, yAxis);
     @FXML
     private LineChart<Number, Number> accGraph = new LineChart<>(xAxis, yAxis);
-
     @FXML
     private WebView latexOut = new WebView();
-
     private int nbSeries = 1;
-
     private Formulas formula = new Formulas();
 
     @FXML
@@ -110,9 +86,13 @@ public class JCinematiqueFXUIController implements Initializable {
         outputField.setText(kinetics.findValue());
         WebEngine webEngine = latexOut.getEngine();
         webEngine.load(writeLatexFormula(kinetics.getLatex()).toURI().toURL().toExternalForm());
-        posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
-        velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
-        nbSeries++;
+        if (kinetics.isWithoutError()) {
+            posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
+            velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
+            accGraph.getData().add(fillAccelerationChart(kinetics, "Series " + nbSeries));
+            nbSeries++;
+        }
+
     }
 
     @Override
@@ -151,7 +131,7 @@ public class JCinematiqueFXUIController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
-        Keyframe posKeyframe = new PositionKeyframe(0, INTERVAL, 2.5);
+        Keyframe posKeyframe = new Keyframe(0, INTERVAL, 2.5);
         for (int i = 0; i <= INTERVAL; i++) {
             posKeyframe.setTime(i);
 
@@ -160,11 +140,23 @@ public class JCinematiqueFXUIController implements Initializable {
         return series;
     }
 
+    private XYChart.Series fillAccelerationChart(Kinetics obj, String name) {
+        XYChart.Series series = new XYChart.Series();
+        series.setName(name);
+        double INTERVAL = obj.getElapsedTime();
+        Keyframe accKeyframe = new Keyframe(0, INTERVAL, 2.5);
+        for (int i = 0; i <= INTERVAL; i++) {
+            accKeyframe.setTime(i);
+            series.getData().add(new XYChart.Data(i, accKeyframe.accValue(i, obj)));
+        }
+        return series;
+    }
+
     private XYChart.Series fillVelocityChart(Kinetics obj, String name) {
         XYChart.Series series = new XYChart.Series();
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
-        Keyframe velKeyframe = new VelocityKeyframe(0, INTERVAL, 2.5);
+        Keyframe velKeyframe = new Keyframe(0, INTERVAL, 2.5);
         for (int i = 0; i <= INTERVAL; i++) {
             velKeyframe.setTime(i);
 

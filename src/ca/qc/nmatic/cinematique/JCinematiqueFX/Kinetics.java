@@ -16,14 +16,6 @@
  */
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
-import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Victor Babin
@@ -47,12 +39,15 @@ public class Kinetics {
     private static final String UNIT_DISTANCE = " m";
     private static final String UNIT_VELOCITY = " m/s";
     private static final String UNIT_ACCELERATION = " m/s²";
-    private static final String UNIT_TIME = " s";
+    private static final String UNIT_TIME = " s";  
     private static final String IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible to find desired value with given values.";
-    private static final String LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES = "\textsc{Impossible to find desired value with given values.}";
+    private static final String LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible\\; to\\; compute\\; with\\; given\\; values.";
 
     // Variables de sortie
     private String unit, formule, formuleDonnees, output, latexOut;
+    
+    private boolean withoutError = false;
+    
     private double result;
 
     private static final Formulas formula = new Formulas();
@@ -71,6 +66,10 @@ public class Kinetics {
         this.accelerationStr = accelerationStr;
         this.desiredValue = desiredValue;
         //formula.formula.createPNG(0, 0, formula.LATEX_VF_1, Color.white, Color.black);
+    }
+
+    public boolean isWithoutError() {
+        return withoutError;
     }
 
     public boolean isXiAlive() {
@@ -205,7 +204,8 @@ public class Kinetics {
                 acceleration = Double.parseDouble(accelerationStr);
             }
         } catch (NumberFormatException e) {
-            return "\\textsc{Bad input, try again.}";
+            latexOut = "Bad\\; input,\\; try\\; again.";
+            return "Bad input, try again.";
         }
         switch (desiredValue) {
             case "Initial position":
@@ -374,9 +374,10 @@ public class Kinetics {
                 }
                 break;
             default:
-                latexOut = "\\textsc{Please choose the unknown value.}";
+                latexOut = "Please\\; choose\\; unknown\\; value.";
                 return "Please choose the unknown value.";
         }
+        withoutError = true;
         return formule + "\n" + result + unit;
     }
 
