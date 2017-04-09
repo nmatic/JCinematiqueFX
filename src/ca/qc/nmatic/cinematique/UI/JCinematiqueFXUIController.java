@@ -109,7 +109,7 @@ public class JCinematiqueFXUIController implements Initializable {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
         WebEngine webEngine = latexOut.getEngine();
-        webEngine.load(writeLatexFormula(kinetics.getLatexFormula()).toURI().toURL().toExternalForm());
+        webEngine.load(writeLatexFormula(kinetics.getLatex()).toURI().toURL().toExternalForm());
         posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
         velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
         nbSeries++;

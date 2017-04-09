@@ -85,14 +85,14 @@
       </TabPane>
       <TabPane layoutX="25.0" layoutY="359.0" prefHeight="191.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab text="Output">
-               <content>
-                  <TextArea fx:id="outputField" editable="false" prefHeight="143.0" prefWidth="440.0" wrapText="true" />
-               </content>
-            </Tab>
             <Tab text="LaTeX output">
                <content>
                   <WebView fx:id="latexOut" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Plain Text">
+               <content>
+                  <TextArea fx:id="outputField" editable="false" prefHeight="143.0" prefWidth="440.0" wrapText="true" />
                </content>
             </Tab>
          </tabs>
