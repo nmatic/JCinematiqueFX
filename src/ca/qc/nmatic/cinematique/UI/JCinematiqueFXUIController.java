@@ -32,14 +32,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 import java.io.FileWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -79,10 +76,12 @@ public class JCinematiqueFXUIController implements Initializable {
     private WebView latexOut = new WebView();
     private int nbSeries = 1;
     private Formulas formula = new Formulas();
+    @FXML
+    private WebView welcome = new WebView();
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
+        Kinematics kinetics = new Kinematics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
         WebEngine webEngine = latexOut.getEngine();
         webEngine.load(writeLatexFormula(kinetics.getLatex()).toURI().toURL().toExternalForm());
@@ -97,6 +96,8 @@ public class JCinematiqueFXUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        WebEngine we = welcome.getEngine();
+        we.load("welcome.html");
         desiredValue.setValue("- SELECT -");
         desiredValue.setItems(chosenValue);
     }
@@ -127,20 +128,19 @@ public class JCinematiqueFXUIController implements Initializable {
         nbSeries = 0;
     }
 
-    private XYChart.Series fillPositionChart(Kinetics obj, String name) {
+    private XYChart.Series fillPositionChart(Kinematics obj, String name) {
         XYChart.Series series = new XYChart.Series();
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
         Keyframe posKeyframe = new Keyframe(0, INTERVAL, 2.5);
         for (int i = 0; i <= INTERVAL; i++) {
             posKeyframe.setTime(i);
-
             series.getData().add(new XYChart.Data(i, posKeyframe.posValue(i, obj)));
         }
         return series;
     }
 
-    private XYChart.Series fillAccelerationChart(Kinetics obj, String name) {
+    private XYChart.Series fillAccelerationChart(Kinematics obj, String name) {
         XYChart.Series series = new XYChart.Series();
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
@@ -152,7 +152,7 @@ public class JCinematiqueFXUIController implements Initializable {
         return series;
     }
 
-    private XYChart.Series fillVelocityChart(Kinetics obj, String name) {
+    private XYChart.Series fillVelocityChart(Kinematics obj, String name) {
         XYChart.Series series = new XYChart.Series();
         series.setName(name);
         double INTERVAL = obj.getElapsedTime();
@@ -185,13 +185,4 @@ public class JCinematiqueFXUIController implements Initializable {
         bw.close();
         return f;
     }
-//    public void Browser() {
-//        //apply the styles
-//        getStyleClass().add("browser");
-//        // load the web page
-//        webEngine.load("http://www.oracle.com/products/index.html");
-//        //add the web view to the scene
-//        getChildren().add(browser);
-//
-//    }
 }

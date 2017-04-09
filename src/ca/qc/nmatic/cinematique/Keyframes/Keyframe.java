@@ -16,7 +16,7 @@
  */
 package ca.qc.nmatic.cinematique.Keyframes;
 
-import ca.qc.nmatic.cinematique.JCinematiqueFX.Kinetics;
+import ca.qc.nmatic.cinematique.JCinematiqueFX.Kinematics;
 import java.util.ArrayList;
 
 /**
@@ -73,8 +73,8 @@ public class Keyframe {
         this.chartData = chartData;
     }
 
-    public double posValue(int time, Kinetics actualKeyframe) {
-        Kinetics anteriorKeyframe = actualKeyframe;
+    public double posValue(int time, Kinematics actualKeyframe) {
+        Kinematics anteriorKeyframe = actualKeyframe;
         if (time == 0) {
             if (actualKeyframe.isXiAlive()) {
                 return actualKeyframe.getInitialPos();
@@ -95,8 +95,8 @@ public class Keyframe {
         }
     }
 
-    public double velValue(int time, Kinetics actualKeyframe) {
-        Kinetics anteriorKeyframe = actualKeyframe;
+    public double velValue(int time, Kinematics actualKeyframe) {
+        Kinematics anteriorKeyframe = actualKeyframe;
         if (time == 0) {
             if (actualKeyframe.isViAlive()) {
                 return actualKeyframe.getInitialVel();
@@ -117,9 +117,13 @@ public class Keyframe {
         }
     }
 
-    public double accValue(int time, Kinetics actualKeyframe) {
-        
-        return actualKeyframe.getAcceleration();
+    public double accValue(int time, Kinematics actualKeyframe) {
+        if (actualKeyframe.isaAlive()) {
+            return actualKeyframe.getAcceleration();
+        } else {
+            actualKeyframe.setDesiredValue("Acceleration");
+            actualKeyframe.findValue();
+            return actualKeyframe.getAcceleration();
         }
     }
-
+}
