@@ -51,12 +51,17 @@ public class Kinetics {
     private static final String IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible to find desired value with given values.";
 
     // Variables de sortie
-    private String unit, formule, formuleDonnees, output;
+    private String unit, formule, formuleDonnees, output, latexFormula;
     private double result;
 
     private static final Formulas formula = new Formulas();
 
+    public String getLatexFormula() {
+        return latexFormula;
+    }
+
     public Kinetics(String initialPosStr, String finalPosStr, String initialVelStr, String finalVelStr, String elapsedTimeStr, String accelerationStr, String desiredValue) {
+        this.latexFormula = formula.LATEX_DT_1;
         this.initialPosStr = initialPosStr;
         this.finalPosStr = finalPosStr;
         this.initialVelStr = initialVelStr;

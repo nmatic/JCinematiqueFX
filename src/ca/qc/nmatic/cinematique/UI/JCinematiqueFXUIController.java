@@ -109,9 +109,7 @@ public class JCinematiqueFXUIController implements Initializable {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
         WebEngine webEngine = latexOut.getEngine();
-        System.out.println(writeLatexFormula().getPath());
-//        webEngine.load(writeLatexFormula().getPath());
-        webEngine.load("http://nmatic.vicbab.me/equations.html");
+        webEngine.load(writeLatexFormula(kinetics.getLatexFormula()).toURI().toURL().toExternalForm());
         posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
         velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
         nbSeries++;
@@ -175,10 +173,9 @@ public class JCinematiqueFXUIController implements Initializable {
         return series;
     }
 
-    public File writeLatexFormula() throws IOException {
-        File f = new File("e.html");
+    public File writeLatexFormula(String latexFormula) throws IOException {
+        File f = new File("current_equation.html");
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-        
         bw.write("<html>\n");
         bw.write("<head>\n");
         bw.write("<title>LaTeX</title>\n");
@@ -190,7 +187,7 @@ public class JCinematiqueFXUIController implements Initializable {
         bw.write("</script>\n");
         bw.write("</head>\n");
         bw.write("<body>\n");
-        bw.write("<p>\n$V_{f} = V_{i} + a\\\\Delta t$\n</p>\n");
+        bw.write("<p>\n$" + latexFormula + "$\n</p>\n");
         bw.write("</body>\n");
         bw.write("</html>\n");
         bw.close();
