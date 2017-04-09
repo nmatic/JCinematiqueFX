@@ -18,8 +18,16 @@ package ca.qc.nmatic.cinematique.UI;
 
 import ca.qc.nmatic.cinematique.JCinematiqueFX.*;
 import ca.qc.nmatic.cinematique.Keyframes.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +42,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
+import org.apache.commons.io.FileUtils;
+import java.io.FileWriter;
 
 /**
  *
@@ -47,6 +57,11 @@ public class JCinematiqueFXUIController implements Initializable {
     NumberAxis yAxis = new NumberAxis();
     LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
+    private File htmlTemplateFile;
+    private String htmlString;
+    private CharSequence body;
+    private File htmlFile;
+    
     @FXML
     private TextField entryInitialPos;
     @FXML
@@ -87,10 +102,16 @@ public class JCinematiqueFXUIController implements Initializable {
 
     private int nbSeries = 1;
 
+    private Formulas formula = new Formulas();
+
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event) throws IOException {
         Kinetics kinetics = new Kinetics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
         outputField.setText(kinetics.findValue());
+        WebEngine webEngine = latexOut.getEngine();
+        System.out.println(writeLatexFormula().getPath());
+//        webEngine.load(writeLatexFormula().getPath());
+        webEngine.load("http://nmatic.vicbab.me/equations.html");
         posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
         velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
         nbSeries++;
@@ -100,8 +121,6 @@ public class JCinematiqueFXUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         desiredValue.setValue("- SELECT -");
         desiredValue.setItems(chosenValue);
-        WebEngine webEngine = latexOut.getEngine();
-        webEngine.load("C:/Users/Administrateur/Documents/NetBeansProjects/JCinematiqueFX/src/ca/qc/nmatic/cinematique/html/equation.html");
     }
 
     @FXML
@@ -156,6 +175,27 @@ public class JCinematiqueFXUIController implements Initializable {
         return series;
     }
 
+    public File writeLatexFormula() throws IOException {
+        File f = new File("e.html");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        
+        bw.write("<html>\n");
+        bw.write("<head>\n");
+        bw.write("<title>LaTeX</title>\n");
+        bw.write("<meta charset=\"UTF-8\">\n");
+        bw.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+        bw.write("<script type=\"text/x-mathjax-config\">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>\n");
+        bw.write("<script type=\"text/javascript\" async\n");
+        bw.write("src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML\">\n");
+        bw.write("</script>\n");
+        bw.write("</head>\n");
+        bw.write("<body>\n");
+        bw.write("<p>\n$V_{f} = V_{i} + a\\\\Delta t$\n</p>\n");
+        bw.write("</body>\n");
+        bw.write("</html>\n");
+        bw.close();
+        return f;
+    }
 //    public void Browser() {
 //        //apply the styles
 //        getStyleClass().add("browser");
@@ -166,4 +206,3 @@ public class JCinematiqueFXUIController implements Initializable {
 //
 //    }
 }
-

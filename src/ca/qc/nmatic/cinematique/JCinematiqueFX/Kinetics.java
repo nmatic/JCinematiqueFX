@@ -17,6 +17,12 @@
 package ca.qc.nmatic.cinematique.JCinematiqueFX;
 
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,8 +56,6 @@ public class Kinetics {
 
     private static final Formulas formula = new Formulas();
 
-    ;
-
     public Kinetics(String initialPosStr, String finalPosStr, String initialVelStr, String finalVelStr, String elapsedTimeStr, String accelerationStr, String desiredValue) {
         this.initialPosStr = initialPosStr;
         this.finalPosStr = finalPosStr;
@@ -60,7 +64,7 @@ public class Kinetics {
         this.elapsedTimeStr = elapsedTimeStr;
         this.accelerationStr = accelerationStr;
         this.desiredValue = desiredValue;
-        formula.formula.createPNG(0, 0, formula.LATEX_VF_1, Color.white, Color.black);
+        //formula.formula.createPNG(0, 0, formula.LATEX_VF_1, Color.white, Color.black);
     }
 
     public boolean isXiAlive() {
@@ -340,5 +344,6 @@ public class Kinetics {
         }
         return formule + "\n" + result + unit;
     }
+
 
 }
