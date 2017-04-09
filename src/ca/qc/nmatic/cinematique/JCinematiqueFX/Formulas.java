@@ -33,7 +33,7 @@ public class Formulas {
     private static final String LATEX_UNIT_VELOCITY = " \\frac{m}{s}";
     private static final String LATEX_UNIT_ACCELERATION = " \\frac{m}{s^{2}}";
     private static final String LATEX_UNIT_TIME = " s";
-    
+
     // Formules affichées
     protected final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
     protected final String FORM_VI_1 = "Vi = -(a" + DELTA + "t - Vf)";
@@ -160,32 +160,32 @@ public class Formulas {
     }
 
     public String outVf_1(double a, double vi, double d_t) {
-        latexData = "v_{f} = " + vi + " + " + a + " " + d_t + "";
+        latexData = "v_{f} = " + vi + " + " + a + " \\cdot " + d_t + "";
         result = (vi + a * d_t);
         return LATEX_VF_1 + "\\\\" + latexData + "\\\\v_{f} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outVi_1(double a, double vf, double d_t) {
-        latexData = "v_{i} = -(a " + d_t + " - " + vf + ")";
+        latexData = "v_{i} = -(" + a + "" + d_t + " - " + vf + ")";
         result = (-(a * d_t - vf));
         return LATEX_VI_1 + "\\\\" + latexData + "\\\\v_{i} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outA_1(double vi, double vf, double d_t) {
-        latexData = "a = \\frac{ " + (vf - vi) + "}{ " + d_t + "}";
+        latexData = "a = \\frac{" + (vf - vi) + "}{" + d_t + "}";
         result = ((vf - vi) / d_t);
         return LATEX_A_1 + "\\\\" + latexData + "\\\\a = " + result + LATEX_UNIT_ACCELERATION;
     }
 
     public String outD_t_1(double vi, double vf, double a) {
-        latexData = " \\Delta t = \\frac{ " + (vf - vi) + "}{a}";
+        latexData = " \\Delta t = \\frac{" + (vf - vi) + "}{" + a + "}";
 
         result = ((vf - vi) / a);
         return LATEX_DT_1 + "\\\\" + latexData + "\\\\\\Delta t = " + result + LATEX_UNIT_TIME;
     }
 
     public String outXf_2(double xi, double vi, double vf, double d_t) {
-        latexData = "x_{f} = " + xi + " + \\frac{1}{2} ( " + vi + " + " + vf + ") " + d_t + "";
+        latexData = "x_{f} = " + xi + " + \\frac{1}{2} \\cdot (" + vi + " + " + vf + ") \\cdot " + d_t + "";
 
         result = (xi + 0.5 * (vi + vf) * d_t);
         return LATEX_XF_2 + "\\\\" + latexData + "\\\\x_{f} = " + result + LATEX_UNIT_DISTANCE;
@@ -199,21 +199,21 @@ public class Formulas {
     }
 
     public String outVi_2(double xi, double xf, double vf, double d_t) {
-        latexData = "v_{i} = 2( " + (xf - xi) + ")/( " + d_t + " - " + vf + ")";
+        latexData = "v_{i} = 2 \\cdot \\frac{" + (xf - xi) + "}{" + d_t + " - " + vf + "}";
 
         result = ((2 * (xf - xi)) / (d_t) - vf);
         return LATEX_VI_2 + "\\\\" + latexData + "\\\\v_{i} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outVf_2(double xi, double xf, double vi, double d_t) {
-        latexData = "v_{f} = 2( " + (xf - xi) + ")/( " + d_t + " - " + vi + ")";
+        latexData = "v_{f} = 2 \\cdot \\frac{" + (xf - xi) + "}{" + d_t + " - " + vi + "}";
 
         result = ((2 * (xf - xi)) / (d_t) - vi);
         return LATEX_VF_2 + "\\\\" + latexData + "\\\\v_{f} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outD_t_2(double xi, double xf, double vi, double vf) {
-        latexData = " \\Delta t = " + (xf - xi) + " / (\\frac{1}{2}( " + vi + " + " + vf + ")";
+        latexData = " \\Delta t = \\frac{" + (xf - xi) + "}{(\\frac{1}{2} \\cdot (" + vi + " + " + vf + ")}";
 
         result = ((xf - xi) / (0.5 * (vi + vf)));
         return LATEX_DT_2 + "\\\\" + latexData + "\\\\\\Delta t = " + result + LATEX_UNIT_TIME;
@@ -235,21 +235,21 @@ public class Formulas {
     }
 
     public String outD_t1_3(double a, double xi, double xf, double vi) {
-        latexData = " \\Delta t = \\frac{- " + vi + " \\pm \\sqrt{(( " + vi + "^{2}) - 4((" + a + "/ 2) * ( " + (xf - xi) + ")))}}{" + a + "}";
+        latexData = " \\Delta t = \\frac{- " + vi + " \\pm \\sqrt{(( " + vi + "^{2}) - 4((" + a + "/ 2) \\cdot ( " + (xf - xi) + ")))}}{" + a + "}";
 
         result = (-vi + Math.sqrt((vi * vi) - 4 * ((a / 2) * (xf - xi)))) / a;
         return LATEX_DT_3 + "\\\\" + latexData + "\\\\\\Delta t = " + result + LATEX_UNIT_TIME;
     }
 
     public String outD_t2_3(double a, double xi, double xf, double vi) {
-        latexData = " \\Delta t = \\frac{- " + vi + " \\pm \\sqrt{(( " + vi + "^{2}) - 4((" + a + "/ 2) * ( " + (xf - xi) + ")))}}{" + a + "}";;
+        latexData = " \\Delta t = \\frac{- " + vi + " \\pm \\sqrt{(( " + vi + "^{2}) - 4((" + a + "/ 2) \\cdot ( " + (xf - xi) + ")))}}{" + a + "}";;
 
         result = ((-vi - Math.sqrt((vi * vi) - 4 * ((a / 2) * (xf - xi)))) / a);
         return LATEX_DT_3 + "\\\\" + latexData + "\\\\\\Delta t = " + result + LATEX_UNIT_TIME;
     }
 
     public String outVi_3(double xi, double xf, double a, double d_t) {
-        latexData = "v_{i} = \\frac{((\\frac{1}{2} " + a + " * (" + d_t + "^{2}) - ( " + (xf - xi) + "))}{- " + d_t + "}";
+        latexData = "v_{i} = \\frac{((\\frac{1}{2} " + a + " \\cdot (" + d_t + "^{2}) - ( " + (xf - xi) + "))}{- " + d_t + "}";
 
         result = ((0.5 * a * (d_t * d_t) - (xf - xi)) / -d_t);
         return LATEX_VI_3 + "\\\\" + latexData + "\\\\v_{i} = " + result + LATEX_UNIT_VELOCITY;
@@ -263,28 +263,28 @@ public class Formulas {
     }
 
     public String outVf_4(double xi, double xf, double vi, double a) {
-        latexData = "v_{f} = \\sqrt{(" + vi + "^{2}) + 2a " + (xf - xi) + "}";
+        latexData = "v_{f} = \\sqrt{(" + vi + "^{2}) + 2 \\cdot " + a + "\\cdot" + (xf - xi) + "}";
 
         result = Math.sqrt((vi * vi) + 2 * a * (xf - xi));
         return LATEX_VF_4 + "\\\\" + latexData + "\\\\v_{f} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outVi_4(double xi, double xf, double vf, double a) {
-        latexData = "v_{i} = \\sqrt{-(" + 2 * a + "(" + (xf - xi) + ") - (" + vf + "^{2})}";
+        latexData = "v_{i} = \\sqrt{-(" + 2 * a + " \\cdot (" + (xf - xi) + ") - (" + vf + "^{2})}";
 
         result = Math.sqrt(-(2 * a * (xf - xi) - (vf * vf)));
         return LATEX_VI_4 + "\\\\" + latexData + "\\\\v_{i} = " + result + LATEX_UNIT_VELOCITY;
     }
 
     public String outA_4(double xi, double xf, double vi, double vf) {
-        latexData = "a = \\frac{(( " + vf + "^{2}) - ( " + vi + "^{2}))}{2}\\; " + (xf - xi) + ")";
+        latexData = "a = \\frac{(( " + vf + "^{2}) - (" + vi + "^{2}))}{2}\\; " + (xf - xi) + ")";
 
         result = (((vf * vf) - (vi * vi)) / 2 * (xf - xi));
         return LATEX_A_4 + "\\\\" + latexData + "\\\\a = " + result + LATEX_UNIT_ACCELERATION;
     }
 
     public String outXi_4(double vi, double vf, double a, double xf) {
-        latexData = "x_{i} = -\\left \\frac{( " + vf + "^{2} - " + vi + "^{2})}{2a} - " + xf + " \\right";
+        latexData = "x_{i} = -\\left \\frac{( " + vf + "^{2} - " + vi + "^{2})}{2 " + a + "} - " + xf + " \\right";
 
         result = -((((vf * vf) - (vi * vi)) / (2 * a)) - xf);
         return LATEX_XI_4 + "\\\\" + latexData + "\\\\x_{i} = " + result + LATEX_UNIT_DISTANCE;
