@@ -18,12 +18,14 @@ package ca.qc.nmatic.cinematique.jcfx.ui;
  */
 
 
+import ca.qc.nmatic.cinematique.jcfx.math.Dynamics;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.commons.math.*;
 
 /**
  *
@@ -33,6 +35,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Dynamics dyn = new Dynamics();
+        System.out.println(dyn.f.value(3));
+        System.out.println(dyn.f.value(3));
         URL fxml = getClass().getClassLoader().getResource("resources/fxml/JCinematiqueFXUI.fxml");
         //URL fxml = getClass().getClassLoader().getResource("resources/fxml/JCinematiqueFXUI.fxml");
         Image icon = new Image(getClass().getClassLoader().getResource("resources/images/icon.png").toExternalForm());

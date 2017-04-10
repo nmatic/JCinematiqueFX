@@ -167,7 +167,7 @@ public class JCinematiqueFXUIController implements Initializable {
     }
 
     public File writeLatexFormula(String latexFormula) throws IOException {
-        File f = new File("src/resources/html/current_equation.html");
+        File f = new File("src/resources/html/kinematic_equation.html");
         BufferedWriter bw = new BufferedWriter(new PrintWriter(f));
         bw.write("<html>\n");
         bw.write("<head>\n");

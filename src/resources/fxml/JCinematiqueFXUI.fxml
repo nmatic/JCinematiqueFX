@@ -97,9 +97,6 @@
                                  </content>
                               </Tab>
                            </tabs>
-                           <cursor>
-                              <Cursor fx:constant="DEFAULT" />
-                           </cursor>
                         </TabPane>
                         <TabPane layoutX="25.0" layoutY="359.0" prefHeight="191.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
@@ -263,11 +260,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab closable="false" text="Simulation">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
+            <Tab closable="false" text="Simulation" />
          </tabs>
       </TabPane>
    </children>

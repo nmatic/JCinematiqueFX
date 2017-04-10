@@ -16,10 +16,13 @@
  */
 package ca.qc.nmatic.cinematique.jcfx.math;
 
+import org.apache.commons.math.FunctionEvaluationException;
+import org.apache.commons.math.analysis.*;
+
 /**
  *
  * @author Victor Babin
  */
 public class Dynamics {
-    
+    public UnivariateRealFunction f = (double x) -> Math.pow(x, 2);
 }
