@@ -16,17 +16,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});</script>
+<head>
+<meta charset="utf-8">
+<title>Welcome</title>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+            },
+            "HTML-CSS": {
+            preferredFont: "STIX"
+            }
+            });
+        </script>
         <script type="text/javascript" async
                 src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
         </script>
-    </head>
-    <body>
-        <div>$Welcome\; to\; JCinematiqueFX \\ an\; open-source\; project\; by \;nmatic$</div>
-        <br><a href="http://nmatic.vicbab.me">http://nmatic.vicbab.me</a>
-    </body>
+</head>
+
+<body>
+<h1>Welcome to $JCinematiqueFX$.</h1>
+</body>
 </html>
+

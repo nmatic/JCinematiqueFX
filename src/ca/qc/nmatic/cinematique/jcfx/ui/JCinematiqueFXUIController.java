@@ -79,7 +79,7 @@ public class JCinematiqueFXUIController implements Initializable {
     private Formulas formula = new Formulas();
     @FXML
     private WebView welcome = new WebView();
-    
+
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         Kinematics kinetics = new Kinematics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
@@ -135,7 +135,7 @@ public class JCinematiqueFXUIController implements Initializable {
         double INTERVAL = obj.getElapsedTime();
         Keyframe posKeyframe = new Keyframe(0, INTERVAL, 2.5);
         for (int i = 0; i <= INTERVAL; i++) {
-            posKeyframe.setTime(i);
+//            posKeyframe.setTime(i);
             series.getData().add(new XYChart.Data(i, posKeyframe.posValue(i, obj)));
         }
         return series;
@@ -174,7 +174,20 @@ public class JCinematiqueFXUIController implements Initializable {
         bw.write("<title>LaTeX</title>\n");
         bw.write("<meta charset=\"UTF-8\">\n");
         bw.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
-        bw.write("<script type=\"text/x-mathjax-config\">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>\n");
+        bw.write("        <script type=\"text/x-mathjax-config\">\n"
+                + "            MathJax.Hub.Config({\n"
+                + "            extensions: [\"tex2jax.js\"],\n"
+                + "            jax: [\"input/TeX\", \"output/HTML-CSS\"],\n"
+                + "            tex2jax: {\n"
+                + "            inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n"
+                + "            displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n"
+                + "            processEscapes: true\n"
+                + "            },\n"
+                + "            \"HTML-CSS\": {\n"
+                + "            preferredFont: \"Latin Modern\"\n"
+                + "            }\n"
+                + "            });\n"
+                + "        </script>\n");
         bw.write("<script type=\"text/javascript\" async\n");
         bw.write("src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML\">\n");
         bw.write("</script>\n");

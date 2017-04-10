@@ -84,12 +84,9 @@ public class Keyframe {
                 return actualKeyframe.getInitialPos();
             }
         } else {
-            anteriorKeyframe.setDesiredValue("Final position");
-            anteriorKeyframe.setElapsedTime(time - 1);
-            anteriorKeyframe.findValue();
             actualKeyframe.setDesiredValue("Final position");
             actualKeyframe.setElapsedTime(time);
-            actualKeyframe.setInitialPos(anteriorKeyframe.getFinalPos());
+//            actualKeyframe.setInitialPos(anteriorKeyframe.getFinalPos());
             actualKeyframe.findValue();
             return actualKeyframe.getFinalPos();
         }

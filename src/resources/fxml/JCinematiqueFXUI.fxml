@@ -21,8 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.web.WebView?>
 
-
-<AnchorPane prefHeight="617.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.jcfx.ui.JCinematiqueFXUIController">
+<AnchorPane prefHeight="617.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.qc.nmatic.cinematique.jcfx.ui.JCinematiqueFXUIController">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="20.0" prefWidth="798.0">
         <menus>
@@ -264,7 +263,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Simulation">
+            <Tab closable="false" text="Simulation">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
