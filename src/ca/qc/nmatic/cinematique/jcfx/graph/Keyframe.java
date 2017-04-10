@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.qc.nmatic.cinematique.Keyframes;
+package ca.qc.nmatic.cinematique.jcfx.graph;
 
-import ca.qc.nmatic.cinematique.JCinematiqueFX.Kinematics;
+import ca.qc.nmatic.cinematique.jcfx.math.Kinematics;
 import java.util.ArrayList;
 
 /**
