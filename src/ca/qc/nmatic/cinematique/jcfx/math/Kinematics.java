@@ -16,6 +16,9 @@
  */
 package ca.qc.nmatic.cinematique.jcfx.math;
 
+import ca.qc.nmatic.cinematique.jcfx.formulas.Formulas;
+import ca.qc.nmatic.cinematique.jcfx.formulas.Result;
+
 /**
  *
  * @author Victor Babin
@@ -39,16 +42,14 @@ public class Kinematics {
     private static final String UNIT_DISTANCE = " m";
     private static final String UNIT_VELOCITY = " m/s";
     private static final String UNIT_ACCELERATION = " m/s²";
-    private static final String UNIT_TIME = " s";  
+    private static final String UNIT_TIME = " s";
     private static final String IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible to find desired value with given values.";
     private static final String LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES = "Impossible\\; to\\; compute\\; with\\; given\\; values.";
 
     // Variables de sortie
     private String unit, formule, formuleDonnees, output, latexOut;
-    
+
     private boolean withoutError = false;
-    
-    private double result;
 
     private static final Formulas formula = new Formulas();
 
@@ -176,7 +177,8 @@ public class Kinematics {
         this.acceleration = acceleration;
     }
 
-    public String findValue() {
+    public Result findValue() {
+        Result result = new Result();
         xiAlive = !initialPosStr.equals("");
         xfAlive = !finalPosStr.equals("");
         viAlive = !initialVelStr.equals("");
@@ -211,166 +213,156 @@ public class Kinematics {
             case "Initial position":
                 unit = UNIT_DISTANCE;
                 if (xfAlive && viAlive && vfAlive && dtAlive) {
-                    initialPos = formula.xi_2(finalPos, initialVel, finalVel, elapsedTime);
-                    result = initialPos;
-                    formule = formula.FORM_XI_2;
-                    latexOut = formula.outXi_2(finalPos, initialVel, finalVel, elapsedTime);
-                    
+                    result = formula.outXi_2(finalPos, initialVel, finalVel, elapsedTime);
+                    initialPos = result.getResult();
                 } else if (aAlive && xfAlive && viAlive && dtAlive) {
-                    initialPos = formula.xi_3(acceleration, finalPos, initialVel, elapsedTime);
-                    result = initialPos;
-                    formule = formula.FORM_XI_3;
-                    latexOut = formula.outXi_3(acceleration, finalPos, initialVel, elapsedTime);
-
+                    result = formula.outXi_3(acceleration, finalPos, initialVel, elapsedTime);
+                    initialPos = result.getResult();
                 } else if (viAlive && vfAlive && aAlive && xfAlive) {
-                    initialPos = formula.xi_4(initialVel, finalVel, acceleration, finalPos);
-                    result = initialPos;
-                    formule = formula.FORM_XI_4;
-                    latexOut = formula.outXi_4(initialVel, finalVel, acceleration, finalPos);
-
+                    result = formula.outXi_4(initialVel, finalVel, acceleration, finalPos);
+                    initialPos = result.getResult();
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             case "Final position":
                 unit = UNIT_DISTANCE;
                 if (xiAlive && viAlive && vfAlive && dtAlive) {
-                    finalPos = formula.xf_2(initialPos, initialVel, finalVel, elapsedTime);
-                    result = finalPos;
-                    formule = formula.FORM_XF_2;
-                    latexOut = formula.outXf_2(initialPos, initialVel, finalVel, elapsedTime);
-
+                    result = formula.outXf_2(initialPos, initialVel, finalVel, elapsedTime);
+                    finalPos = result.getResult();
                 } else if (aAlive && xiAlive && viAlive && dtAlive) {
-                    finalPos = formula.xf_3(acceleration, initialPos, initialVel, elapsedTime);
-                    result = finalPos;
-                    formule = formula.FORM_XF_3;
-                    latexOut = formula.outXf_3(acceleration, initialPos, initialVel, elapsedTime);
-
+                    result = formula.outXf_3(acceleration, initialPos, initialVel, elapsedTime);
+                    finalPos = result.getResult();
                 } else if (xiAlive && viAlive && vfAlive && aAlive) {
-                    finalPos = formula.xf_4(initialVel, finalVel, acceleration, initialPos);
-                    result = finalPos;
-                    formule = formula.FORM_XF_4;
-                    latexOut = formula.outXf_4(initialVel, finalVel, acceleration, initialPos);
-
+                    result = formula.outXf_4(initialVel, finalVel, acceleration, initialPos);
+                    finalPos = result.getResult();
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             case "Initial velocity":
                 unit = UNIT_VELOCITY;
                 if (aAlive && vfAlive && dtAlive) {
-                    initialVel = formula.vi_1(acceleration, finalVel, elapsedTime);
-                    result = initialVel;
-                    formule = formula.FORM_VI_1;
-                    latexOut = formula.outVi_1(acceleration, finalVel, elapsedTime);
-
+                    result = formula.outVi_1(acceleration, finalVel, elapsedTime);
+                    initialVel = result.getResult();
+//                    initialVel = formula.outVi_1(acceleration, finalVel, elapsedTime).getResult();
+//                    result = initialVel;
+//                    formule = formula.FORM_VI_1;
+//                    latexOut = formula.outVi_1(acceleration, finalVel, elapsedTime);
                 } else if (xfAlive && xiAlive && vfAlive && dtAlive) {
-                    initialVel = formula.vi_2(initialPos, finalPos, finalVel, elapsedTime);
-                    result = initialVel;
-                    formule = formula.FORM_VI_2;
-                    latexOut = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime);
 
+//                    initialVel = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime).getResult();
+//                    result = initialVel;
+//                    formule = formula.FORM_VI_2;
+//                    latexOut = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime);
                 } else if (xfAlive && xiAlive && aAlive && dtAlive) {
-                    initialVel = formula.vi_3(initialPos, finalPos, acceleration, elapsedTime);
-                    result = initialVel;
-                    formule = formula.FORM_VI_3;
-                    latexOut = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime);
 
+//                    initialVel = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime).getResult();
+//                    result = initialVel;
+//                    formule = formula.FORM_VI_3;
+//                    latexOut = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime);
                 } else if (xfAlive && xiAlive && vfAlive && aAlive) {
-                    initialVel = formula.vi_4(initialPos, finalPos, finalVel, acceleration);
-                    result = initialVel;
-                    formule = formula.FORM_VI_4;
-                    latexOut = formula.outVi_4(initialPos, finalPos, finalVel, acceleration);
 
+//                    initialVel = formula.outVi_4(initialPos, finalPos, finalVel, acceleration).getResult();
+//                    result = initialVel;
+//                    formule = formula.FORM_VI_4;
+//                    latexOut = formula.outVi_4(initialPos, finalPos, finalVel, acceleration);
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             case "Final velocity":
                 unit = UNIT_VELOCITY;
                 if (aAlive && dtAlive && viAlive) {
-                    finalVel = formula.vf_1(acceleration, initialVel, elapsedTime);
-                    result = finalVel;
-                    formule = formula.FORM_VF_1;
-                    latexOut = formula.outVf_1(acceleration, initialVel, elapsedTime);
 
+//                    finalVel = formula.outVf_1(acceleration, initialVel, elapsedTime).getResult();
+//                    result = finalVel;
+//                    formule = formula.FORM_VF_1;
+//                    latexOut = formula.outVf_1(acceleration, initialVel, elapsedTime);
                 } else if (xfAlive && xiAlive && viAlive && dtAlive) {
-                    finalVel = formula.vf_2(initialPos, finalPos, initialVel, elapsedTime);
-                    result = finalVel;
-                    formule = formula.FORM_VF_2;
-                    latexOut = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime);
 
+//                    finalVel = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime).getResult();
+//                    result = finalVel;
+//                    formule = formula.FORM_VF_2;
+//                    latexOut = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime);
                 } else if (xfAlive && xiAlive && viAlive && aAlive) {
-                    finalVel = formula.vf_4(initialPos, finalPos, initialVel, acceleration);
-                    result = finalVel;
-                    formule = formula.FORM_VF_4;
-                    latexOut = formula.outVf_4(initialPos, finalPos, initialVel, acceleration);
 
+//                    finalVel = formula.outVf_4(initialPos, finalPos, initialVel, acceleration).getResult();
+//                    result = finalVel;
+//                    formule = formula.FORM_VF_4;
+//                    latexOut = formula.outVf_4(initialPos, finalPos, initialVel, acceleration);
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             case "Elapsed time":
                 unit = UNIT_TIME;
                 if (viAlive && vfAlive && aAlive) {
-                    elapsedTime = formula.d_t_1(initialVel, finalVel, acceleration);
-                    result = elapsedTime;
-                    formule = formula.FORM_DT_1;
-                    latexOut = formula.outD_t_1(initialVel, finalVel, acceleration);
 
+//                    elapsedTime = formula.outD_t_1(initialVel, finalVel, acceleration).getResult();
+//                    result = elapsedTime;
+//                    formule = formula.FORM_DT_1;
+//                    latexOut = formula.outD_t_1(initialVel, finalVel, acceleration);
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
-                    elapsedTime = formula.d_t_2(initialPos, finalPos, initialVel, finalVel);
-                    result = elapsedTime;
-                    formule = formula.FORM_DT_2;
-                    latexOut = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel);
 
+//                    elapsedTime = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel).getResult();
+//                    result = elapsedTime;
+//                    formule = formula.FORM_DT_2;
+//                    latexOut = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel);
                 } else if (xiAlive && xfAlive && viAlive && aAlive) {
-                    formule = formula.FORM_DT_3;
-                    
 
-                    double result1 = formula.d_t1_3(acceleration, initialPos, finalPos, initialVel);
-                    double result2 = formula.d_t2_3(acceleration, initialPos, finalPos, initialVel);
+//                    formule = formula.FORM_DT_3;
+                    double result1 = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel).getResult();
+                    double result2 = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel).getResult();
                     if (result1 > 0) {
-                        elapsedTime = result1;
-                        latexOut = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel);
+
+//                        elapsedTime = result1;
+//                        latexOut = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel);
                     } else if (result2 > 0) {
-                        elapsedTime = result2;
-                        latexOut = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel);
+
+//                        elapsedTime = result2;
+//                        latexOut = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel);
                     }
-                    result = elapsedTime;
+//                    result = elapsedTime;
 
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             case "Acceleration":
                 unit = UNIT_ACCELERATION;
                 if (viAlive && vfAlive && dtAlive) {
-                    acceleration = formula.a_1(initialVel, finalVel, elapsedTime);
-                    result = acceleration;
-                    formule = formula.FORM_A_1;
-                    latexOut = formula.outA_1(initialVel, finalVel, elapsedTime);
 
+//                    acceleration = formula.outA_1(initialVel, finalVel, elapsedTime).getResult();
+//                    result = acceleration;
+//                    formule = formula.FORM_A_1;
+//                    latexOut = formula.outA_1(initialVel, finalVel, elapsedTime);
                 } else if (xiAlive && xfAlive && viAlive && dtAlive) {
-                    acceleration = formula.a_3(initialPos, finalPos, elapsedTime, initialVel);
-                    result = acceleration;
-                    formule = formula.FORM_A_3;
-                    latexOut = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel);
 
+//                    acceleration = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel).getResult();
+//                    result = acceleration;
+//                    formule = formula.FORM_A_3;
+//                    latexOut = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel);
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
-                    acceleration = formula.a_4(initialPos, finalPos, initialVel, finalVel);
-                    result = acceleration;
-                    formule = formula.FORM_A_4;
-                    latexOut = formula.outA_4(initialPos, finalPos, initialVel, finalVel);
 
+//                    acceleration = formula.outA_4(initialPos, finalPos, initialVel, finalVel).getResult();
+//                    result = acceleration;
+//                    formule = formula.FORM_A_4;
+//                    latexOut = formula.outA_4(initialPos, finalPos, initialVel, finalVel);
                 } else {
-                    latexOut = LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES;
-                    return IMPOSSIBLE_WITH_GIVEN_VALUES;
+                    result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
+                    return result;
                 }
                 break;
             default:

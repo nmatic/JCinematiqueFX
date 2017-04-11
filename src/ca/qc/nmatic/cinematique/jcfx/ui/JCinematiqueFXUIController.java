@@ -17,7 +17,8 @@
 package ca.qc.nmatic.cinematique.jcfx.ui;
 
 import ca.qc.nmatic.cinematique.jcfx.graph.Keyframe;
-import ca.qc.nmatic.cinematique.jcfx.math.Formulas;
+import ca.qc.nmatic.cinematique.jcfx.formulas.Formulas;
+import ca.qc.nmatic.cinematique.jcfx.formulas.Result;
 import ca.qc.nmatic.cinematique.jcfx.math.Kinematics;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -83,10 +84,12 @@ public class JCinematiqueFXUIController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         Kinematics kinetics = new Kinematics(entryInitialPos.getText(), entryFinalPos.getText(), entryInitialVel.getText(), entryFinalVel.getText(), entryElapsedTime.getText(), entryAcceleration.getText(), (String) desiredValue.getValue());
-        outputField.setText(kinetics.findValue());
-        WebEngine webEngine = latexOut.getEngine();
-        webEngine.load(writeLatexFormula(kinetics.getLatex()).toURI().toURL().toExternalForm());
+        Result result = kinetics.findValue();
+
         if (kinetics.isWithoutError()) {
+            outputField.setText(result.toRegular(true));
+            WebEngine webEngine = latexOut.getEngine();
+            webEngine.load(writeLatexFormula(result.toLatex(true)).toURI().toURL().toExternalForm());
             posGraph.getData().add(fillPositionChart(kinetics, "Series " + nbSeries));
             velGraph.getData().add(fillVelocityChart(kinetics, "Series " + nbSeries));
             accGraph.getData().add(fillAccelerationChart(kinetics, "Series " + nbSeries));
