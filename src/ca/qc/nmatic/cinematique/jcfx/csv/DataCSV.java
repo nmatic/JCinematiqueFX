@@ -18,43 +18,39 @@ package ca.qc.nmatic.cinematique.jcfx.csv;
 
 import java.util.ArrayList;
 import com.opencsv.*;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.List;
 
 /**
  *
  * @author Victor Babin
  */
 public class DataCSV {
-    private ArrayList<String> positionList;
-    private ArrayList<String> velocityList;
-    private ArrayList<String> accelerationList;
-    private File csvFile;
-    private CSVWriter csvWriter;
-    private CSVReader csvReader;
+    private File csvOut, csvIn;
+    private final CSVWriter csvWriter = new CSVWriter(new FileWriter("/src/resources/output.csv"));
+    private final CSVReader csvReader = new CSVReader(new FileReader("/src/resources/input.csv"));;
+    private String pathToCSVOut;
+    private String pathToCSVIn;
     
-    public DataCSV(String pathToCSV) throws FileNotFoundException, IOException {
-//        this.csvFile = new File("/src/resources/local.csv");
-        this.csvFile = new File(pathToCSV);
-        this.csvWriter = new CSVWriter(new FileWriter(csvFile));
-        this.positionList = new ArrayList<>();
-        this.velocityList = new ArrayList<>();
-        this.accelerationList = new ArrayList<>();
+    public DataCSV() throws FileNotFoundException, IOException {
+        this.csvIn = new File("/src/resources/input.csv");
+        this.csvOut = new File("/src/resources/output.csv");
     }
-    public ArrayList<Double> parseCSV(){
-        //TODO
-        
-        return null;
-        
+
+    public void setPathToCSVOut(String pathToCSVOut) {
+        this.pathToCSVOut = pathToCSVOut;
     }
-    public ArrayList<Double> parseCSV(String pathToCSV){
-        //TODO
-        return null;
-        
+
+    public void setPathToCSVIn(String pathToCSVIn) {
+        this.pathToCSVIn = pathToCSVIn;
     }
     
+    public List<String[]> readCSV() throws IOException{      
+        return csvReader.readAll();
+        
+    }    
 }
