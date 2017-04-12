@@ -34,8 +34,6 @@ public class Formulas {
     protected static final String LATEX_UNIT_ACCELERATION = " \\frac{m}{s^{2}}";
     protected static final String LATEX_UNIT_TIME = " s";
 
-    
-
     // Formules affichées
     protected static final String FORM_VF_1 = "Vf = Vi + a" + DELTA + "t";
     protected static final String FORM_VI_1 = "Vi = -(a" + DELTA + "t - Vf)";

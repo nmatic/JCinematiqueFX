@@ -206,8 +206,9 @@ public class Kinematics {
                 acceleration = Double.parseDouble(accelerationStr);
             }
         } catch (NumberFormatException e) {
-            latexOut = "Bad\\; input,\\; try\\; again.";
-            return "Bad input, try again.";
+            result.setLatexError("Bad\\; input,\\; try\\; again.");
+            result.setRegularError("Bad input, try again.");
+            return result;
         }
         switch (desiredValue) {
             case "Initial position":
@@ -249,28 +250,15 @@ public class Kinematics {
                 if (aAlive && vfAlive && dtAlive) {
                     result = formula.outVi_1(acceleration, finalVel, elapsedTime);
                     initialVel = result.getResult();
-//                    initialVel = formula.outVi_1(acceleration, finalVel, elapsedTime).getResult();
-//                    result = initialVel;
-//                    formule = formula.FORM_VI_1;
-//                    latexOut = formula.outVi_1(acceleration, finalVel, elapsedTime);
                 } else if (xfAlive && xiAlive && vfAlive && dtAlive) {
-
-//                    initialVel = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime).getResult();
-//                    result = initialVel;
-//                    formule = formula.FORM_VI_2;
-//                    latexOut = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime);
+                    result = formula.outVi_2(initialPos, finalPos, finalVel, elapsedTime);
+                    initialVel = result.getResult();
                 } else if (xfAlive && xiAlive && aAlive && dtAlive) {
-
-//                    initialVel = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime).getResult();
-//                    result = initialVel;
-//                    formule = formula.FORM_VI_3;
-//                    latexOut = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime);
+                    result = formula.outVi_3(initialPos, finalPos, acceleration, elapsedTime);
+                    initialVel = result.getResult();
                 } else if (xfAlive && xiAlive && vfAlive && aAlive) {
-
-//                    initialVel = formula.outVi_4(initialPos, finalPos, finalVel, acceleration).getResult();
-//                    result = initialVel;
-//                    formule = formula.FORM_VI_4;
-//                    latexOut = formula.outVi_4(initialPos, finalPos, finalVel, acceleration);
+                    result = formula.outVi_4(initialPos, finalPos, finalVel, acceleration);
+                    initialVel = result.getResult();
                 } else {
                     result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
                     result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
@@ -280,23 +268,14 @@ public class Kinematics {
             case "Final velocity":
                 unit = UNIT_VELOCITY;
                 if (aAlive && dtAlive && viAlive) {
-
-//                    finalVel = formula.outVf_1(acceleration, initialVel, elapsedTime).getResult();
-//                    result = finalVel;
-//                    formule = formula.FORM_VF_1;
-//                    latexOut = formula.outVf_1(acceleration, initialVel, elapsedTime);
+                    result = formula.outVf_1(acceleration, initialVel, elapsedTime);
+                    finalVel = result.getResult();
                 } else if (xfAlive && xiAlive && viAlive && dtAlive) {
-
-//                    finalVel = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime).getResult();
-//                    result = finalVel;
-//                    formule = formula.FORM_VF_2;
-//                    latexOut = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime);
+                    result = formula.outVf_2(initialPos, finalPos, initialVel, elapsedTime);
+                    finalVel = result.getResult();
                 } else if (xfAlive && xiAlive && viAlive && aAlive) {
-
-//                    finalVel = formula.outVf_4(initialPos, finalPos, initialVel, acceleration).getResult();
-//                    result = finalVel;
-//                    formule = formula.FORM_VF_4;
-//                    latexOut = formula.outVf_4(initialPos, finalPos, initialVel, acceleration);
+                    result = formula.outVf_4(initialPos, finalPos, initialVel, acceleration);
+                    finalVel = result.getResult();
                 } else {
                     result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
                     result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
@@ -306,32 +285,20 @@ public class Kinematics {
             case "Elapsed time":
                 unit = UNIT_TIME;
                 if (viAlive && vfAlive && aAlive) {
-
-//                    elapsedTime = formula.outD_t_1(initialVel, finalVel, acceleration).getResult();
-//                    result = elapsedTime;
-//                    formule = formula.FORM_DT_1;
-//                    latexOut = formula.outD_t_1(initialVel, finalVel, acceleration);
+                    result = formula.outD_t_1(initialVel, finalVel, acceleration);
+                    elapsedTime = result.getResult();
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
-
-//                    elapsedTime = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel).getResult();
-//                    result = elapsedTime;
-//                    formule = formula.FORM_DT_2;
-//                    latexOut = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel);
+                    result = formula.outD_t_2(initialPos, finalPos, initialVel, finalVel);
+                    elapsedTime = result.getResult();
                 } else if (xiAlive && xfAlive && viAlive && aAlive) {
-
-//                    formule = formula.FORM_DT_3;
                     double result1 = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel).getResult();
                     double result2 = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel).getResult();
                     if (result1 > 0) {
-
-//                        elapsedTime = result1;
-//                        latexOut = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel);
+                        result = formula.outD_t1_3(acceleration, initialPos, finalPos, initialVel);
                     } else if (result2 > 0) {
-
-//                        elapsedTime = result2;
-//                        latexOut = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel);
+                        result = formula.outD_t2_3(acceleration, initialPos, finalPos, initialVel);
                     }
-//                    result = elapsedTime;
+                    elapsedTime = result.getResult();
 
                 } else {
                     result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
@@ -342,23 +309,14 @@ public class Kinematics {
             case "Acceleration":
                 unit = UNIT_ACCELERATION;
                 if (viAlive && vfAlive && dtAlive) {
-
-//                    acceleration = formula.outA_1(initialVel, finalVel, elapsedTime).getResult();
-//                    result = acceleration;
-//                    formule = formula.FORM_A_1;
-//                    latexOut = formula.outA_1(initialVel, finalVel, elapsedTime);
+                    result = formula.outA_1(initialVel, finalVel, elapsedTime);
+                    acceleration = result.getResult();
                 } else if (xiAlive && xfAlive && viAlive && dtAlive) {
-
-//                    acceleration = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel).getResult();
-//                    result = acceleration;
-//                    formule = formula.FORM_A_3;
-//                    latexOut = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel);
+                    result = formula.outA_3(initialPos, finalPos, elapsedTime, initialVel);
+                    acceleration = result.getResult();
                 } else if (xiAlive && xfAlive && viAlive && vfAlive) {
-
-//                    acceleration = formula.outA_4(initialPos, finalPos, initialVel, finalVel).getResult();
-//                    result = acceleration;
-//                    formule = formula.FORM_A_4;
-//                    latexOut = formula.outA_4(initialPos, finalPos, initialVel, finalVel);
+                    result = formula.outA_4(initialPos, finalPos, initialVel, finalVel);
+                    acceleration = result.getResult();
                 } else {
                     result.setLatexError(LATEX_IMPOSSIBLE_WITH_GIVEN_VALUES);
                     result.setRegularError(IMPOSSIBLE_WITH_GIVEN_VALUES);
@@ -366,11 +324,12 @@ public class Kinematics {
                 }
                 break;
             default:
-                latexOut = "\\displaystyle Please\\; choose\\; unknown\\; value.";
-                return "Please choose the unknown value.";
+                result.setLatexError("\\displaystyle Please\\; choose\\; unknown\\; value.");
+                result.setRegularError("Please choose the unknown value.");
+                return result;
         }
         withoutError = true;
-        return formule + "\n" + result + unit;
+        return result;
     }
 
 }
