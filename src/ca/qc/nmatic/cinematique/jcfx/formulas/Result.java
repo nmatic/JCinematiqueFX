@@ -60,7 +60,6 @@ public class Result {
         } else {
             return regularError;
         }
-
     }
 
     public void setRegularError(String regularError) {

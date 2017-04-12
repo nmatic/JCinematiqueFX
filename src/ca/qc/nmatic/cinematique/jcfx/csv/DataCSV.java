@@ -21,7 +21,8 @@ import com.opencsv.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -36,10 +37,10 @@ public class DataCSV {
     private CSVWriter csvWriter;
     private CSVReader csvReader;
     
-    public DataCSV(String pathToCSV) throws FileNotFoundException {
+    public DataCSV(String pathToCSV) throws FileNotFoundException, IOException {
 //        this.csvFile = new File("/src/resources/local.csv");
         this.csvFile = new File(pathToCSV);
-        this.csvWriter = new CSVWriter(new PrintWriter(csvFile));
+        this.csvWriter = new CSVWriter(new FileWriter(csvFile));
         this.positionList = new ArrayList<>();
         this.velocityList = new ArrayList<>();
         this.accelerationList = new ArrayList<>();
